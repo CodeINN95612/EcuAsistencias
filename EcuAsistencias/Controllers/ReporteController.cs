@@ -33,7 +33,7 @@ namespace EcuAsistencias.Controllers
                 _CrearHeadersDefectoR4(ws, "Asistencia", fecha.GetValueOrDefault());
 
                 //Reporte
-                //ws.Cells[5, 2, 5, 6].Style.Font.Bold = true;
+                ws.Cells[5, 2, 5, 6].Style.Font.Bold = true;
                 //ws.Cells[5, 2];
                 //ws.Cells[5, 2];
                 //ws.Cells[5, 2];
@@ -80,7 +80,7 @@ namespace EcuAsistencias.Controllers
 
         private void _CrearHeadersDefectoR4(ExcelWorksheet ws, string reporte, DateTime fecha)
         {
-           // ws.Cells[2, 2, 5, 2].Style.Font.Bold = true;
+            ws.Cells[2, 2, 5, 2].Style.Font.Bold = true;
 
             ws.Cells["B2"].Value = "Nombre Reporte:";
             ws.Cells["C2"].Value = reporte;
