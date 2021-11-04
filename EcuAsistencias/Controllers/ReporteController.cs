@@ -80,7 +80,7 @@ namespace EcuAsistencias.Controllers
 
         private void _CrearHeadersDefectoR4(ExcelWorksheet ws, string reporte, DateTime fecha)
         {
-            ws.Cells[2, 2, 5, 2].Style.Font.Bold = true;
+           // ws.Cells[2, 2, 5, 2].Style.Font.Bold = true;
 
             ws.Cells["B2"].Value = "Nombre Reporte:";
             ws.Cells["C2"].Value = reporte;
