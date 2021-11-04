@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EcuDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Asistencia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentificacionUsuario" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="HoraIngreso" Type="datetime" Nullable="false" />
+          <Property Name="HoraSalida" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Motivo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detalle" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PermisosSalida">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDAsistencia" Type="int" Nullable="false" />
+          <Property Name="HoraPermiso" Type="datetime" Nullable="false" />
+          <Property Name="TiempoPermisoHoras" Type="time" Precision="7" Nullable="false" />
+          <Property Name="IdMotivo" Type="int" Nullable="false" />
+          <Property Name="MotivoOtros" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detalle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EsSupervisor" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Identificacion" />
+          </Key>
+          <Property Name="Identificacion" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="datetime" Nullable="false" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="Contrasenia" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="HorarioInicio" Type="datetime" Nullable="false" />
+          <Property Name="HorarioFin" Type="datetime" Nullable="false" />
+          <Property Name="CambioContrasenia" Type="bit" Nullable="false" />
+          <Property Name="IDRol" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Asistencia_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Identificacion" />
+            </Principal>
+            <Dependent Role="Asistencia">
+              <PropertyRef Name="IdentificacionUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermisosSalida_Asistencia">
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="1" />
+          <End Role="PermisosSalida" Type="Self.PermisosSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistencia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PermisosSalida">
+              <PropertyRef Name="IDAsistencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermisosSalida_Motivo1">
+          <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+          <End Role="PermisosSalida" Type="Self.PermisosSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motivo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PermisosSalida">
+              <PropertyRef Name="IdMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IDRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcuDBModelStoreContainer">
+          <EntitySet Name="Asistencia" EntityType="Self.Asistencia" Schema="ECU" store:Type="Tables" />
+          <EntitySet Name="Motivo" EntityType="Self.Motivo" Schema="ECU" store:Type="Tables" />
+          <EntitySet Name="PermisosSalida" EntityType="Self.PermisosSalida" Schema="ECU" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="ECU" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="ECU" store:Type="Tables" />
+          <AssociationSet Name="FK_Asistencia_Usuario" Association="Self.FK_Asistencia_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Asistencia" EntitySet="Asistencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermisosSalida_Asistencia" Association="Self.FK_PermisosSalida_Asistencia">
+            <End Role="Asistencia" EntitySet="Asistencia" />
+            <End Role="PermisosSalida" EntitySet="PermisosSalida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermisosSalida_Motivo1" Association="Self.FK_PermisosSalida_Motivo1">
+            <End Role="Motivo" EntitySet="Motivo" />
+            <End Role="PermisosSalida" EntitySet="PermisosSalida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EcuDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Asistencia">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentificacionUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HoraIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HoraSalida" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Asistencia_Usuario" FromRole="Asistencia" ToRole="Usuario" />
+          <NavigationProperty Name="PermisosSalida" Relationship="Self.FK_PermisosSalida_Asistencia" FromRole="Asistencia" ToRole="PermisosSalida" />
+        </EntityType>
+        <EntityType Name="Motivo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PermisosSalida" Relationship="Self.FK_PermisosSalida_Motivo1" FromRole="Motivo" ToRole="PermisosSalida" />
+        </EntityType>
+        <EntityType Name="PermisosSalida">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDAsistencia" Type="Int32" Nullable="false" />
+          <Property Name="HoraPermiso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TiempoPermisoHoras" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="IdMotivo" Type="Int32" Nullable="false" />
+          <Property Name="MotivoOtros" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Asistencia" Relationship="Self.FK_PermisosSalida_Asistencia" FromRole="PermisosSalida" ToRole="Asistencia" />
+          <NavigationProperty Name="Motivo" Relationship="Self.FK_PermisosSalida_Motivo1" FromRole="PermisosSalida" ToRole="Motivo" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detalle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EsSupervisor" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Identificacion" />
+          </Key>
+          <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="Contrasenia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HorarioInicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HorarioFin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CambioContrasenia" Type="Boolean" Nullable="false" />
+          <Property Name="IDRol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Asistencia" Relationship="Self.FK_Asistencia_Usuario" FromRole="Usuario" ToRole="Asistencia" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK_Asistencia_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Identificacion" />
+            </Principal>
+            <Dependent Role="Asistencia">
+              <PropertyRef Name="IdentificacionUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermisosSalida_Asistencia">
+          <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="1" />
+          <End Role="PermisosSalida" Type="Self.PermisosSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Asistencia">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PermisosSalida">
+              <PropertyRef Name="IDAsistencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermisosSalida_Motivo1">
+          <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+          <End Role="PermisosSalida" Type="Self.PermisosSalida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Motivo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PermisosSalida">
+              <PropertyRef Name="IdMotivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="IDRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EcuDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Asistencia" EntityType="Self.Asistencia" />
+          <EntitySet Name="Motivo" EntityType="Self.Motivo" />
+          <EntitySet Name="PermisosSalida" EntityType="Self.PermisosSalida" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Asistencia_Usuario" Association="Self.FK_Asistencia_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Asistencia" EntitySet="Asistencia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermisosSalida_Asistencia" Association="Self.FK_PermisosSalida_Asistencia">
+            <End Role="Asistencia" EntitySet="Asistencia" />
+            <End Role="PermisosSalida" EntitySet="PermisosSalida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermisosSalida_Motivo1" Association="Self.FK_PermisosSalida_Motivo1">
+            <End Role="Motivo" EntitySet="Motivo" />
+            <End Role="PermisosSalida" EntitySet="PermisosSalida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EcuDBModelStoreContainer" CdmEntityContainer="EcuDBEntities">
+          <EntitySetMapping Name="Asistencia">
+            <EntityTypeMapping TypeName="EcuDBModel.Asistencia">
+              <MappingFragment StoreEntitySet="Asistencia">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdentificacionUsuario" ColumnName="IdentificacionUsuario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="HoraIngreso" ColumnName="HoraIngreso" />
+                <ScalarProperty Name="HoraSalida" ColumnName="HoraSalida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Motivo">
+            <EntityTypeMapping TypeName="EcuDBModel.Motivo">
+              <MappingFragment StoreEntitySet="Motivo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PermisosSalida">
+            <EntityTypeMapping TypeName="EcuDBModel.PermisosSalida">
+              <MappingFragment StoreEntitySet="PermisosSalida">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IDAsistencia" ColumnName="IDAsistencia" />
+                <ScalarProperty Name="HoraPermiso" ColumnName="HoraPermiso" />
+                <ScalarProperty Name="TiempoPermisoHoras" ColumnName="TiempoPermisoHoras" />
+                <ScalarProperty Name="IdMotivo" ColumnName="IdMotivo" />
+                <ScalarProperty Name="MotivoOtros" ColumnName="MotivoOtros" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="EcuDBModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+                <ScalarProperty Name="EsSupervisor" ColumnName="EsSupervisor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="EcuDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="HorarioInicio" ColumnName="HorarioInicio" />
+                <ScalarProperty Name="HorarioFin" ColumnName="HorarioFin" />
+                <ScalarProperty Name="CambioContrasenia" ColumnName="CambioContrasenia" />
+                <ScalarProperty Name="IDRol" ColumnName="IDRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
