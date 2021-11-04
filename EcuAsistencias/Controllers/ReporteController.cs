@@ -43,7 +43,7 @@ namespace EcuAsistencias.Controllers
                 int row = 6;
                 foreach(AsistenciaReporteModel asistencia in asistencias)
 				{
-                    ws.Row(row).
+                    //ws.Row(row).
 				}
 			}
 		}
