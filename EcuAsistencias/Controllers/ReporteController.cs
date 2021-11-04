@@ -33,7 +33,7 @@ namespace EcuAsistencias.Controllers
                 _CrearHeadersDefectoR4(ws, "Asistencia", fecha.GetValueOrDefault());
 
                 //Reporte
-                ws.Cells[5, 2, 5, 6].Style.Font.Bold = true;
+                //ws.Cells[5, 2, 5, 6].Style.Font.Bold = true;
                 //ws.Cells[5, 2];
                 //ws.Cells[5, 2];
                 //ws.Cells[5, 2];
