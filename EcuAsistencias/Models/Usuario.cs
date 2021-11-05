@@ -20,16 +20,24 @@ namespace EcuAsistencias.Models
         {
             this.Asistencia = new HashSet<Asistencia>();
         }
-    
-        
+
+        [Display(Name = "Cédula")]
         public string Identificacion { get; set; }
+        [Display(Name = "Nombre")]
         public string Nombre { get; set; }
+        [Display(Name = "Apellido")]
         public string Apellido { get; set; }
+        [Display(Name = "Fecha Nacimiento")]
         public System.DateTime FechaNacimiento { get; set; }
+        [Display(Name = "Estado")]
         public bool Activo { get; set; }
+        [Display(Name = "Contraseña")]
         public string Contrasenia { get; set; }
+        [Display(Name = "Hora de entrada")]
         public System.DateTime HorarioInicio { get; set; }
+        [Display(Name = "Hora de Salida")]
         public System.DateTime HorarioFin { get; set; }
+        [Display(Name = "Ingresar Contraseña")]
         public bool CambioContrasenia { get; set; }
 
         [Display(Name = "Rol")]
