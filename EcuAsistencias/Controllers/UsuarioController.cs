@@ -74,6 +74,10 @@ namespace EcuAsistencias.Controllers
             }
 
 		}
+        public ActionResult newUser()
+		{
+            return View();
+		}
 
         [HttpGet]
         public ActionResult Logout()

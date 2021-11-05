@@ -233,6 +233,7 @@
     <Content Include="Views\Usuario\Test.cshtml" />
     <Content Include="Views\Reporte\Asistencia.cshtml" />
     <Content Include="Views\Usuario\viewLista.cshtml" />
+    <Content Include="Views\Usuario\newUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
