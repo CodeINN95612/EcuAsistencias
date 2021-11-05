@@ -1,0 +1,48 @@
+﻿@model IEnumerable<EcuAsistencias.Models.Usuario>
+
+@{
+    ViewBag.Title = "viewLista";
+}
+
+<h2>viewLista</h2>
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+    @Html.TextBox("cedula")
+    <input type="submit" value="Buscar" />
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Identificacion)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Identificacion)
+            </th>
+        </tr>
+    }
+
+</table>

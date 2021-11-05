@@ -232,6 +232,7 @@
     <Content Include="Views\Shared\LoginLayout.cshtml" />
     <Content Include="Views\Usuario\Test.cshtml" />
     <Content Include="Views\Reporte\Asistencia.cshtml" />
+    <Content Include="Views\Usuario\viewLista.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -64,6 +64,16 @@ namespace EcuAsistencias.Controllers
             //Ir a pagina principal
             return RedirectToAction("Test");
         }
+        public ActionResult viewLista(string cedula)
+		{
+            if(cedula is null)
+			{
+                return View(db.Usuario.ToList());
+			}else {
+                return View(db.Usuario.Where(u => u.Identificacion.Contains(cedula)).ToList());
+            }
+
+		}
 
         [HttpGet]
         public ActionResult Logout()
