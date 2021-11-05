@@ -76,6 +76,7 @@ namespace EcuAsistencias.Controllers
 		}
         public ActionResult newUser()
 		{
+            ViewBag.IDRol = new SelectList(db.Rol, "ID", "Detalle");
             return View();
 		}
 
