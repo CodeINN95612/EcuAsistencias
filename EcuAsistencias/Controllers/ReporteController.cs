@@ -19,11 +19,12 @@ namespace EcuAsistencias.Controllers
             return View(_ObtenerAsistenciaReporteModels(fecha));
 		}
         
-        public void ExportarAsistencia(DateTime? fecha)
+        [HttpGet]
+        public ActionResult ExportarAsistencia(DateTime? fecha)
 		{
             List<AsistenciaReporteModel> asistencias = _ObtenerAsistenciaReporteModels(fecha);
             if (asistencias.Count == 0)
-                return;
+                return RedirectToAction("Asistencia");
 
             using(ExcelPackage pkg = new ExcelPackage(new System.IO.FileInfo("Downloads/Asistencias.xlsx")))
 			{
@@ -34,19 +35,26 @@ namespace EcuAsistencias.Controllers
 
                 //Reporte
                 ws.Cells[5, 2, 5, 6].Style.Font.Bold = true;
-                //ws.Cells[5, 2];
-                //ws.Cells[5, 2];
-                //ws.Cells[5, 2];
-                //ws.Cells[5, 2];
-                //ws.Cells[5, 2];
+                ws.Cells[5, 2].Value = "IDENTIFICACION";
+                ws.Cells[5, 3].Value = "NOMBRE";
+                ws.Cells[5, 4].Value = "ASISTIO?";
+                ws.Cells[5, 5].Value = "HORA INGRESO";
+                ws.Cells[5, 6].Value = "HORAS TRABAJADAS";
 
                 int row = 6;
                 foreach(AsistenciaReporteModel asistencia in asistencias)
 				{
-                    //ws.Row(row).
-				}
+                    ws.Cells[row, 2].Value = asistencia.Identificacion;
+                    ws.Cells[row, 3].Value = asistencia.Nombre;
+                    ws.Cells[row, 4].Value = asistencia.Asistio;
+                    ws.Cells[row, 5].Value = asistencia.HoraIngreso?.ToString("HH:mm:ss") ?? "";
+                    ws.Cells[row, 6].Value = asistencia.HorasTrabajadas.ToString();
+                    row++;
+                }
 			}
-		}
+
+            return RedirectToAction("Asistencia");
+        }
 
         //Metodos publicos
 
@@ -57,6 +65,8 @@ namespace EcuAsistencias.Controllers
 		}
 
         //Metodos Privados
+
+        [NonAction]
         private List<AsistenciaReporteModel> _ObtenerAsistenciaReporteModels(DateTime? fecha)
 		{
             List<AsistenciaReporteModel> resultado = new List<AsistenciaReporteModel>();
@@ -78,6 +88,7 @@ namespace EcuAsistencias.Controllers
             return resultado;
         }
 
+        [NonAction]
         private void _CrearHeadersDefectoR4(ExcelWorksheet ws, string reporte, DateTime fecha)
         {
             ws.Cells[2, 2, 5, 2].Style.Font.Bold = true;

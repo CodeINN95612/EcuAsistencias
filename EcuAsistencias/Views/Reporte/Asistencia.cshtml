@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<EcuAsistencias.Models.ReporteriaModels.AsistenciaReporteModel>
 
 @{
-    ViewBag.Title = "Asistencia";
+    ViewBag.Title = "Reporte Asistencia";
 }
 
-<h2>Asistencia</h2>
+<h2>Reporte Asistencia</h2>
 
 <hr />
 @using(Html.BeginForm(null, null, FormMethod.Get))
 {
     <input type="date" name="fecha" />
     <input type="submit" value="Buscar" />
+    <input type="submit" value="Exportar Excel" formaction=@Url.Action("ExportarAsistencia") formmethod=""/>
 }
+
+<hr />
 
 <table class="table">
     <tr>
