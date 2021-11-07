@@ -139,6 +139,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AsistenciasController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -234,6 +235,7 @@
     <Content Include="Views\Reporte\Asistencia.cshtml" />
     <Content Include="Views\Usuario\viewLista.cshtml" />
     <Content Include="Views\Usuario\newUser.cshtml" />
+    <Content Include="Views\Asistencias\RegistrarEntrada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
