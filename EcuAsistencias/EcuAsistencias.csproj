@@ -170,6 +170,7 @@
       <DependentUpon>EcuDBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ReporteriaModels\AsistenciaReporteModel.cs" />
+    <Compile Include="Models\ReporteriaModels\ReporteModel.cs" />
     <Compile Include="Models\Rol.cs">
       <DependentUpon>EcuDBModel.tt</DependentUpon>
     </Compile>
@@ -232,10 +233,13 @@
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
     <Content Include="Views\Usuario\Test.cshtml" />
-    <Content Include="Views\Reporte\Asistencia.cshtml" />
     <Content Include="Views\Usuario\viewLista.cshtml" />
     <Content Include="Views\Usuario\newUser.cshtml" />
-    <Content Include="Views\Asistencias\RegistrarEntrada.cshtml" />
+    <Content Include="Views\Reporte\Lista.cshtml" />
+    <Content Include="Views\Reporte\AsistenciaDiaria.cshtml" />
+    <Content Include="Views\Reporte\AsistenciaMensual.cshtml" />
+    <Content Include="Views\Reporte\PermisosDiarios.cshtml" />
+    <Content Include="Views\Reporte\PermisosMensuales.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

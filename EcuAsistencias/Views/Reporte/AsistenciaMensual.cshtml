@@ -1,0 +1,53 @@
+﻿@model IEnumerable<EcuAsistencias.Models.ReporteriaModels.ReporteAsistenciaMensualModel>
+
+@{
+	ViewBag.Title = "Reporte Asistencia Mensual";
+	string tmpFecha = string.IsNullOrEmpty(Request.Form["fechaMes"]) ? null : Request.Form["fechaMes"].ToString();
+}
+
+<h2>Reporte Asistencia Mensual</h2>
+
+<hr />
+<h4>Filtros de Búsqueda</h4>
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+	<input type="date" name="fechaMes"/>
+	<input type="submit" value="Buscar" name="accion" />
+}
+<hr />
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Identificacion)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Nombre)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CantidadDiasAsistidos)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CantidadHorasTrabajadas)
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Identificacion)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nombre)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CantidadDiasAsistidos)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CantidadHorasTrabajadas)
+			</td>
+		</tr>
+	}
+
+</table>
