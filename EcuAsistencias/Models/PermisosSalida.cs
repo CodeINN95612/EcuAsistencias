@@ -11,14 +11,22 @@ namespace EcuAsistencias.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PermisosSalida
     {
         public int ID { get; set; }
         public int IDAsistencia { get; set; }
+        [DataType(DataType.Time)]
+        [Display(Name = "Hora de Salida Temporal")]
         public System.DateTime HoraPermiso { get; set; }
+       [DataType(DataType.Time)]
+        [Display(Name = "Duracion de su salida")]
         public System.TimeSpan TiempoPermisoHoras { get; set; }
+        [Display(Name = "Seleccione el motivo de su salida")]
         public int IdMotivo { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Especifique otro motivo")]
         public string MotivoOtros { get; set; }
     
         public virtual Asistencia Asistencia { get; set; }
