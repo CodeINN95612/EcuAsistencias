@@ -24,8 +24,8 @@
 					<li>@Html.ActionLink("Permisos", "Test", "Usuario")</li>
 					@if (Session["EsSupervisor"] != null && (bool)Session["EsSupervisor"])
 					{
-						<li>@Html.ActionLink("Usuarios", "Test", "Usuario")</li>
-						<li>@Html.ActionLink("Reportes", "Asistencia", "Reporte")</li>
+						<li>@Html.ActionLink("Usuarios", "viewLista", "Usuario")</li>
+						<li>@Html.ActionLink("Reportes", "Lista", "Reporte")</li>
 					}
 
 				<li>@Html.ActionLink("LogOut", "Logout", "Usuario")</li>

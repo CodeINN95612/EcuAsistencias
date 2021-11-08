@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EcuAsistencias.Models.ReporteriaModels.ReportePermisosMensualesModel>
+
+@{
+	ViewBag.Title = "Reporte Permisos Mensuales";
+}
+
+<h2>Reporte Permisos Mensuales</h2>
+
+<hr />
+<h4>Filtros de Búsqueda</h4>
+@using (Html.BeginForm(null, null, FormMethod.Get))
+{
+	<input type="date" name="fechaMes" />
+	<input type="submit" value="Buscar" name="accion" />
+}
+<hr />
+
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Identificacion)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Nombre)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CantidadPermisosPedidos)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.TotalHorasPermiso)
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Identificacion)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nombre)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.CantidadPermisosPedidos)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.TotalHorasPermiso)
+			</td>
+		</tr>
+	}
+
+</table>

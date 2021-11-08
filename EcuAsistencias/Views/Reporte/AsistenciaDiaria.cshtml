@@ -1,19 +1,18 @@
-﻿@model IEnumerable<EcuAsistencias.Models.ReporteriaModels.AsistenciaReporteModel>
+﻿@model IEnumerable<EcuAsistencias.Models.ReporteriaModels.ReporteAsistenciaDiariaModel>
 
 @{
-    ViewBag.Title = "Reporte Asistencia";
+    ViewBag.Title = "Reporte Asistencia Diaria";
 }
 
-<h2>Reporte Asistencia</h2>
+<h2>Reporte Asistencia Diaria</h2>
 
 <hr />
-@using(Html.BeginForm(null, null, FormMethod.Get))
+<h4>Filtros de Búsqueda</h4>
+@using (Html.BeginForm(null, null, FormMethod.Get))
 {
-    <input type="date" name="fecha" />
-    <input type="submit" value="Buscar" />
-    <input type="submit" value="Exportar Excel" formaction=@Url.Action("ExportarAsistencia") formmethod=""/>
+    <input type="date" name ="fechaDia"/>
+    <input type="submit" value="Buscar" name="accion"/>
 }
-
 <hr />
 
 <table class="table">
@@ -31,9 +30,8 @@
             @Html.DisplayNameFor(model => model.HoraIngreso)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HorasTrabajadas)
+            @Html.DisplayNameFor(model => model.HoraSalida)
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -51,7 +49,7 @@
             @Html.DisplayFor(modelItem => item.HoraIngreso)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.HorasTrabajadas)
+            @Html.DisplayFor(modelItem => item.HoraSalida)
         </td>
     </tr>
 }

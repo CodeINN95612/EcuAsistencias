@@ -10,7 +10,8 @@
 namespace EcuAsistencias.Models
 {
     using System;
-    using System.Data.Entity;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
     public partial class EcuDBEntities : DbContext
@@ -30,5 +31,6 @@ namespace EcuAsistencias.Models
         public virtual DbSet<PermisosSalida> PermisosSalida { get; set; }
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+
     }
 }
