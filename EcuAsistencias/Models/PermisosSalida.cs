@@ -25,6 +25,7 @@ namespace EcuAsistencias.Models
         public System.TimeSpan TiempoPermisoHoras { get; set; }
         [Display(Name = "Seleccione el motivo de su salida")]
         public int IdMotivo { get; set; }
+
         [DataType(DataType.MultilineText)]
         [Display(Name = "Especifique otro motivo")]
         public string MotivoOtros { get; set; }

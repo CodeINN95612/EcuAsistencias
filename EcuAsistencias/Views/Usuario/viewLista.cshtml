@@ -1,48 +1,63 @@
-﻿@model IEnumerable<EcuAsistencias.Models.Usuario>
+﻿@model PagedList.IPagedList<EcuAsistencias.Models.Usuario>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
-    ViewBag.Title = "viewLista";
+	ViewBag.Title = "Usuarios";
 }
-
-<h2>viewLista</h2>
+ 
+<br />
+<h2>Buscar Usuario por Identificacion</h2>
 @using (Html.BeginForm(null, null, FormMethod.Get))
 {
-    @Html.TextBox("cedula")
-    <input type="submit" value="Buscar" />
+	@Html.TextBox("cedula")
+	<input type="submit" value="Buscar" />
 }
 
 
 <p>
-    @Html.ActionLink("Create New", "newUser")
+	@Html.ActionLink("Nuevo", "newUser")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Identificacion)
-        </th>
+	<tr>
+		<th>
+			<label>Nombre</label>
+		</th>
+		<th>
+			<label>Apellido</label>
+		</th>
+		<th>
+			<label>Identificacion</label>
+		</th>
 
-        <th></th>
-    </tr>
+		<th></th>
+	</tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Identificacion)
-            </td>
-        </tr>
-    }
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Nombre)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Apellido)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Identificacion)
+			</td>
+			<td>
+				@Html.ActionLink("Editar", "Editar", new { id=item.Identificacion }) |
+				@Html.ActionLink("Detalles", "Detalles", new { id=item.Identificacion }) |
+				@Html.ActionLink("Borrar", "Borrar", new { id=item.Identificacion })
+			</td>
+		</tr>
+	}
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("viewLista",
+	new { page }))

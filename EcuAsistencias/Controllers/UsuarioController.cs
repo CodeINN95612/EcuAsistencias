@@ -5,8 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using EcuAsistencias.Models.ViewModels;
 using EcuAsistencias.Models;
+using PagedList;
 
 using System.Security.Cryptography;
+using System.Net;
+using System.Data.Entity;
 
 namespace EcuAsistencias.Controllers
 {
@@ -64,14 +67,21 @@ namespace EcuAsistencias.Controllers
             //Ir a pagina principal
             return RedirectToAction("RegistrarEntrada", "Asistencias");
         }
-        public ActionResult viewLista(string cedula)
+        public ActionResult viewLista(string cedula, int? page)
 		{
-            if(cedula is null)
-			{
-                return View(db.Usuario.ToList());
-			}else {
-                return View(db.Usuario.Where(u => u.Identificacion.Contains(cedula)).ToList());
+            const int pageSize = 5;
+            int pageNumber = page ?? 1;
+
+            List<Usuario> usuarios;
+            if (cedula is null)
+            {
+                usuarios = db.Usuario.ToList();
+                page = 1;
             }
+            else
+                usuarios = db.Usuario.Where(u => u.Identificacion.Contains(cedula)).ToList();
+
+            return View(usuarios.ToPagedList(pageNumber, pageSize));
 
 		}
         public ActionResult newUser()
@@ -79,6 +89,105 @@ namespace EcuAsistencias.Controllers
             ViewBag.IDRol = new SelectList(db.Rol, "ID", "Detalle");
             return View();
 		}
+
+        [HttpPost]
+        public ActionResult newUser(Usuario nuevo)
+        {
+            ViewBag.IDRol = new SelectList(db.Rol, "ID", "Detalle");
+            if (!ModelState.IsValid)
+                return View(nuevo);
+
+            Usuario existente = db.Usuario.Find(nuevo.Identificacion);
+            if(existente is null)
+			{
+                nuevo.Contrasenia = Encriptar(nuevo.Identificacion);
+                nuevo.CambioContrasenia = true;
+                nuevo.Activo = true;
+                db.Usuario.Add(nuevo);
+                db.SaveChanges();
+                return RedirectToAction("viewLista");
+			}
+
+            return View(nuevo);
+        }
+
+        public ActionResult Borrar(string id)
+		{
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario usuario = db.Usuario.Find(id);
+            if (usuario == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuario);
+        }
+
+        // POST: Albumes/Delete/5
+        [HttpPost, ActionName("Borrar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult BorrarConfirmado(string id)
+        {
+            Usuario us = db.Usuario.Find(id);
+            db.Usuario.Remove(us);
+            db.SaveChanges();
+            return RedirectToAction("viewLista");
+        }
+
+        public ActionResult Editar(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario us = db.Usuario.Find(id);
+            if (us == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IDRol = new SelectList(db.Rol, "ID", "Detalle", us.Rol);
+            return View(us);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(Usuario us)
+        {
+            if (ModelState.IsValid)
+            {
+                Usuario existente = db.Usuario.Find(us.Identificacion);
+                existente.Nombre = us.Nombre;
+                existente.Apellido = us.Apellido;
+                existente.FechaNacimiento = us.FechaNacimiento;
+                existente.CambioContrasenia = us.CambioContrasenia;
+                existente.Activo = us.Activo;
+
+                Rol rol = db.Rol.Find(us.IDRol);
+                existente.Rol = rol;
+                existente.IDRol = rol.ID;
+
+                db.SaveChanges();
+                return RedirectToAction("viewLista");
+            }
+            ViewBag.IDRol = new SelectList(db.Rol, "ID", "Detalle", us.Rol);
+            return View(us);
+        }
+
+        public ActionResult Detalles(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Usuario us = db.Usuario.Find(id);
+            if (us == null)
+            {
+                return HttpNotFound();
+            }
+            return View(us);
+        }
 
         [HttpGet]
         public ActionResult Logout()

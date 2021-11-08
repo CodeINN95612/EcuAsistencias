@@ -23,20 +23,27 @@ namespace EcuAsistencias.Models
         }
 
         [Display(Name = "Cédula")]
+        [DataType(DataType.Text)]
         public string Identificacion { get; set; }
         [Display(Name = "Nombre")]
+        [DataType(DataType.Text)]
         public string Nombre { get; set; }
         [Display(Name = "Apellido")]
+        [DataType(DataType.Text)]
         public string Apellido { get; set; }
         [Display(Name = "Fecha Nacimiento")]
+        [DataType(DataType.Date)]
         public System.DateTime FechaNacimiento { get; set; }
         [Display(Name = "Estado")]
         public bool Activo { get; set; }
         [Display(Name = "Contraseña")]
+        [DataType(DataType.Password)]
         public string Contrasenia { get; set; }
         [Display(Name = "Hora de entrada")]
+        [DataType(DataType.Time)]
         public System.DateTime HorarioInicio { get; set; }
         [Display(Name = "Hora de Salida")]
+        [DataType(DataType.Time)]
         public System.DateTime HorarioFin { get; set; }
         [Display(Name = "Ingresar Contraseña")]
         public bool CambioContrasenia { get; set; }
