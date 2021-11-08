@@ -62,7 +62,7 @@ namespace EcuAsistencias.Controllers
             Session["EsSupervisor"] = usuarioExistente.Rol.EsSupervisor;
 
             //Ir a pagina principal
-            return RedirectToAction("Test");
+            return RedirectToAction("RegistrarEntrada", "Asistencias");
         }
         public ActionResult viewLista(string cedula)
 		{
