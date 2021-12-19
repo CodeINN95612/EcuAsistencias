@@ -152,39 +152,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Asistencia.cs">
-      <DependentUpon>EcuDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EcuDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EcuDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EcuDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EcuDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EcuDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EcuDBModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Motivo.cs">
-      <DependentUpon>EcuDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PermisosSalida.cs">
-      <DependentUpon>EcuDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReporteriaModels\AsistenciaReporteModel.cs" />
-    <Compile Include="Models\ReporteriaModels\ReporteModel.cs" />
-    <Compile Include="Models\Rol.cs">
-      <DependentUpon>EcuDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Usuario.cs">
-      <DependentUpon>EcuDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ViewModels\UsuarioLoginViewModel.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\EcuDb.cs" />
+    <Compile Include="Models\Models\Asistencia.cs" />
+    <Compile Include="Models\Models\Motivo.cs" />
+    <Compile Include="Models\Models\PermisoSalida.cs" />
+    <Compile Include="Models\Models\Rol.cs" />
+    <Compile Include="Models\Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -197,25 +171,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\EcuDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EcuDBModel.Context.cs</LastGenOutput>
-      <DependentUpon>EcuDBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\EcuDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EcuDBModel.edmx</DependentUpon>
-      <LastGenOutput>EcuDBModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\EcuDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EcuDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\EcuDBModel.edmx.diagram">
-      <DependentUpon>EcuDBModel.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -244,7 +201,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
-    <Content Include="Views\Usuario\Test.cshtml" />
     <Content Include="Views\Usuario\viewLista.cshtml" />
     <Content Include="Views\Usuario\newUser.cshtml" />
     <Content Include="Views\Reporte\Lista.cshtml" />

@@ -10,45 +10,45 @@ namespace EcuAsistencias.Controllers
     public class PermisosController : Controller
 
     {
-        EcuDBEntities db = new EcuDBEntities();
-        // GET: Permisos
-        [HttpGet]
-        public ActionResult PermisoSalida   ()
-        {
-            ViewBag.IdMotivo = new SelectList(db.Motivo, "ID", "Detalle");
-            return View();
+		EcuDB db = new EcuDB();
+		// GET: Permisos
+		[HttpGet]
+		public ActionResult PermisoSalida()
+		{
+			ViewBag.IdMotivo = new SelectList(db.Motivos, "ID", "Detalle");
+			return View();
 
-        }
-        [HttpPost]
-        public ActionResult PermisoSalida(PermisosSalida modelo)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(modelo);
-            }
+		}
+		[HttpPost]
+		public ActionResult PermisoSalida(PermisoSalida modelo)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(modelo);
+			}
 
-            Usuario Logeado = db.Usuario.Find(Session["UsuarioID"].ToString());
-            Asistencia Actual = db.Asistencia.FirstOrDefault(a => a.Fecha == DateTime.Today && a.IdentificacionUsuario.Equals(Logeado.Identificacion));
-            Motivo m = db.Motivo.Find(modelo.IdMotivo);
-            if(Actual != null)
-            {
-                PermisosSalida nuevo = new PermisosSalida
-                {
-                    Asistencia = Actual,
-                    HoraPermiso = modelo.HoraPermiso,
-                    IDAsistencia = Actual.ID,
-                    IdMotivo = m.ID,
-                    Motivo = m,
-                    MotivoOtros = m.ID == 4 ? modelo.MotivoOtros : null,
-                    TiempoPermisoHoras = modelo.TiempoPermisoHoras,
+			Usuario Logeado = db.Usuarios.Find(Session["UsuarioID"].ToString());
+			Asistencia Actual = db.Asistencias.FirstOrDefault(a => a.Fecha == DateTime.Today && a.IdentificacionUsuario.Equals(Logeado.Identificacion));
+			Motivo m = db.Motivos.Find(modelo.IdMotivo);
+			if (Actual != null)
+			{
+				PermisoSalida nuevo = new PermisoSalida
+				{
+					Asistencia = Actual,
+					HoraPermiso = modelo.HoraPermiso,
+					IdAsistencia = Actual.Id,
+					IdMotivo = m.Id,
+					Motivo = m,
+					MotivoOtros = m.Id == 4 ? modelo.MotivoOtros : null,
+					TiempoPermisoHoras = modelo.TiempoPermisoHoras,
 
-                };
-                db.PermisosSalida.Add(nuevo);
-                db.SaveChanges();
-            }
-            ViewBag.IdMotivo = new SelectList(db.Motivo, "ID", "Detalle");
-            return View();
+				};
+				db.PermisosSalida.Add(nuevo);
+				db.SaveChanges();
+			}
+			ViewBag.IdMotivo = new SelectList(db.Motivos, "ID", "Detalle");
+			return View();
 
-        }
-    }
+		}
+	}
 }
