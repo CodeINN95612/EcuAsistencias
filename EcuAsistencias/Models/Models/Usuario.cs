@@ -16,7 +16,7 @@ namespace EcuAsistencias.Models
 		[Required]
 		public string Nombre { get; set; }
 
-		[MaxLength(200)]
+		[MaxLength(100)]
 		[Required]
 		public string Apellido { get; set; }
 

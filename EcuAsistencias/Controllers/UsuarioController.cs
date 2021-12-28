@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using EcuAsistencias.Models;
 using PagedList;
-
 using System.Security.Cryptography;
 using System.Net;
-using System.Data.Entity;
+using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers
 {
@@ -26,7 +24,7 @@ namespace EcuAsistencias.Controllers
 				Session["UsuarioID"] = usuarioLogeado.Identificacion;
 				Session["Usuario"] = usuarioLogeado.Nombre;
 				Session["EsSupervisor"] = usuarioLogeado.Rol.EsSupervisor;
-				return RedirectToAction("Test");
+				return RedirectToAction("RegistrarEntrada", "Asistencias");
 			}
 
 			Session.Clear();
@@ -35,7 +33,7 @@ namespace EcuAsistencias.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Login(/*UsuarioLoginViewModel*/ Usuario loginUser)
+		public ActionResult Login(UsuarioLoginViewModel loginUser)
 		{
 
 			//Validar Modelo
@@ -90,19 +88,34 @@ namespace EcuAsistencias.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult newUser(Usuario nuevo)
+		public ActionResult newUser(UsuarioViewModel nuevo)
 		{
-			ViewBag.IDRol = new SelectList(db.Roles, "ID", "Detalle");
+			ViewBag.IdRol = new SelectList(db.Roles, "Id", "Detalle");
 			if (!ModelState.IsValid)
 				return View(nuevo);
 
 			Usuario existente = db.Usuarios.Find(nuevo.Identificacion);
 			if (existente is null)
 			{
-				nuevo.Contrasenia = Encriptar(nuevo.Identificacion);
-				nuevo.CambioContrasenia = true;
-				nuevo.Activo = true;
-				db.Usuarios.Add(nuevo);
+				Rol rolExistente = db.Roles.Find(nuevo.IdRol);
+				if (rolExistente is null)
+					return View(nuevo);
+
+				existente = new Usuario
+				{
+					Activo = true,
+					Apellido = nuevo.Apellido,
+					CambioContrasenia = true,
+					Contrasenia = Encriptar(nuevo.Identificacion),
+					FechaNacimiento = nuevo.FechaNacimiento,
+					HorarioFin = nuevo.HorarioFin,
+					HorarioInicio = nuevo.HorarioInicio,
+					Identificacion = nuevo.Identificacion,
+					IdRol = rolExistente.Id,
+					Nombre = nuevo.Nombre,
+					Rol = rolExistente
+				};
+				db.Usuarios.Add(existente);
 				db.SaveChanges();
 				return RedirectToAction("viewLista");
 			}
@@ -193,15 +206,6 @@ namespace EcuAsistencias.Controllers
 		{
 			Session.Clear();
 			return RedirectToAction("Login");
-		}
-
-		[HttpGet]
-		public ActionResult Test()
-		{
-			if (Session["UsuarioID"] is null)
-				return RedirectToAction("Login");
-
-			return View();
 		}
 
 		//Privadas

@@ -1,4 +1,4 @@
-﻿@model EcuAsistencias.Models.Usuario
+﻿@model EcuAsistencias.Core.ViewModels.UsuarioViewModel
 
 @{
     ViewBag.Title = "Crear Usuario";
@@ -62,10 +62,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IDRol, "IDRol", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdRol, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDRol", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDRol, "", new { @class = "text-danger" })
+                @Html.DropDownList("IdRol", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdRol, "", new { @class = "text-danger" })
             </div>
         </div>
 
