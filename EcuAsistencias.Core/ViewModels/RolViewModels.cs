@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcuAsistencias.Models
+namespace EcuAsistencias.Core.ViewModels
 {
 	[Table("Rol", Schema = "Ecu")]
 	public class RolViewModel
