@@ -14,7 +14,7 @@ using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers.API
 {
-    public class MotivoWebController : ApiController
+    public class MotivoController : ApiController
     {
         private EcuDB db = new EcuDB();
 
@@ -30,7 +30,7 @@ namespace EcuAsistencias.Controllers.API
         }
         // GET: api/Motivo/5
         [ResponseType(typeof(MotivoViewModel))]
-        public IHttpActionResult GetMotivo(string id)
+        public IHttpActionResult GetMotivo(int id)
         {
             Motivo motivo = db.Motivos.Find(id);
             if (motivo == null)
@@ -49,14 +49,14 @@ namespace EcuAsistencias.Controllers.API
 
         // PUT: api/Motivos/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMotivo(string id, MotivoViewModel motivoView)
+        public IHttpActionResult PutMotivo(int id, MotivoViewModel motivoView)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!id.Equals(motivoView.Id))
+            if (id != motivoView.Id)
             {
                 return BadRequest();
             }
@@ -110,7 +110,7 @@ namespace EcuAsistencias.Controllers.API
 
         // DELETE: api/Motivoes/5
         [ResponseType(typeof(MotivoViewModel))]
-        public IHttpActionResult DeleteMotivo(string id)
+        public IHttpActionResult DeleteMotivo(int id)
         {
             Motivo motivo = db.Motivos.Find(id);
             if (motivo == null)
@@ -138,9 +138,9 @@ namespace EcuAsistencias.Controllers.API
             base.Dispose(disposing);
         }
 
-        private bool MotivoExists(string id)
+        private bool MotivoExists(int id)
         {
-            return db.Motivos.Count(e => e.Id.Equals(id)) > 0;
+            return db.Motivos.Count(e => e.Id == id) > 0;
         }
 
      

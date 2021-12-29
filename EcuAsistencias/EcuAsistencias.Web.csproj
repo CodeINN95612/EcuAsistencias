@@ -155,9 +155,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\API\MotivoWebController.cs" />
-    <Compile Include="Controllers\API\RolWebController.cs" />
-    <Compile Include="Controllers\API\UsuarioWebController.cs" />
+    <Compile Include="Controllers\API\PermisoSalidaController.cs" />
+    <Compile Include="Controllers\API\AsistenciaController.cs" />
+    <Compile Include="Controllers\API\MotivoController.cs" />
+    <Compile Include="Controllers\API\RolController.cs" />
+    <Compile Include="Controllers\API\UsuarioController.cs" />
     <Compile Include="Controllers\AsistenciasController.cs" />
     <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
