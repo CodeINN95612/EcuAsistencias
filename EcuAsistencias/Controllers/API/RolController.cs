@@ -14,7 +14,7 @@ using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers.API
 {
-    public class RolWebController : ApiController
+    public class RolController : ApiController
     {
         private EcuDB db = new EcuDB();
 
@@ -30,7 +30,7 @@ namespace EcuAsistencias.Controllers.API
         }
         // GET: api/Rol/5
         [ResponseType(typeof(RolViewModel))]
-        public IHttpActionResult GetRol(string id)
+        public IHttpActionResult GetRol(int id)
         {
             Rol rol = db.Roles.Find(id);
             if (rol == null)
@@ -43,20 +43,19 @@ namespace EcuAsistencias.Controllers.API
                 Detalle = rol.Detalle,
                 EsSupervisor = rol.EsSupervisor,
                 Id = rol.Id
-
             });
         }
 
         // PUT: api/Rols/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRol(string id, RolViewModel rolView)
+        public IHttpActionResult PutRol(int id, RolViewModel rolView)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!id.Equals(rolView.Id))
+            if (id != rolView.Id)
             {
                 return BadRequest();
             }
@@ -110,7 +109,7 @@ namespace EcuAsistencias.Controllers.API
 
         // DELETE: api/Roles/5
         [ResponseType(typeof(RolViewModel))]
-        public IHttpActionResult DeleteRol(string id)
+        public IHttpActionResult DeleteRol(int id)
         {
             Rol Rol = db.Roles.Find(id);
             if (Rol == null)
@@ -138,9 +137,9 @@ namespace EcuAsistencias.Controllers.API
             base.Dispose(disposing);
         }
 
-        private bool RolExists(string id)
+        private bool RolExists(int id)
         {
-            return db.Roles.Count(e => e.Id.Equals(id)) > 0;
+            return db.Roles.Count(e => e.Id == id) > 0;
         }
     }
 }

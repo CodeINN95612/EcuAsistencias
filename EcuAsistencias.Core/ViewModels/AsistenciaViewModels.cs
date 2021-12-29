@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcuAsistencias.Models
+namespace EcuAsistencias.Core.ViewModels
 {
 	[Table("Asistencia", Schema = "Ecu")]
 	public class AsistenciaViewModel

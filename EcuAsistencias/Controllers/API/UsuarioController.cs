@@ -14,7 +14,7 @@ using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers.API
 {
-    public class UsuarioWebController : ApiController
+    public class UsuarioController : ApiController
     {
         private EcuDB db = new EcuDB();
 
