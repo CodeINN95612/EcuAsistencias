@@ -2,13 +2,76 @@
     x:Class="EcuAsistencias.App.Views.Asistencia.AsistenciaDetalle"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:EcuAsistencias.App.Views.Asistencia"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    xmlns:viewmodels="using:EcuAsistencias.Core.ViewModels"
+    mc:Ignorable="d" Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Detalle" FontSize="36"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+            <Button x:Name="btnRegresar" Content="Regresar" Width="150" Margin="10, 0, 0, 0" Click="btnRegresar_Click"/>
+            <Button x:Name="btnGuardar" Content="Guardar" Width="150" Margin="10, 0, 0, 0" Click="btnGuardar_Click"/>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Grid.Column="0" Margin="10, 0, 0, 0" x:Name="grdAsistencia">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="350"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel x:Name="panelId" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
+                <TextBlock  Text="Id" FontSize="30"/>
+            </StackPanel>
+            <TextBox x:Name="txtId" Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay}" Margin="10, 5, 0, 5"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right">
+                <TextBlock  Text="Usuario" FontSize="30"/>
+            </StackPanel>
+            <ComboBox x:Name="cmdUsuario" Grid.Row="1" Grid.Column="1" DisplayMemberPath="Identificacion" SelectedValue="{Binding IdentificacionUsuario, Mode=TwoWay}" SelectedValuePath="Identificacion" Margin="10, 5, 0, 0"/>
+
+            <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right">
+                <TextBlock  Text="Fecha Asistencia" FontSize="30"/>
+            </StackPanel>
+            <DatePicker x:Name="dteFecha" Grid.Row="2" Grid.Column="1" SelectedDate="{Binding Fecha, Mode=TwoWay}" Margin="10, 0, 0, 0"/>
+
+            <StackPanel Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right">
+                <TextBlock  Text="Hora de Ingreso" FontSize="30"/>
+            </StackPanel>
+            <TimePicker x:Name="dteIngreso" Grid.Row="3" Grid.Column="1" SelectedTime="{Binding Ingreso, Mode=TwoWay}" Margin="10, 0, 0, 0"/>
+
+            <StackPanel Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right">
+                <TextBlock  Text="Hora de Salida" FontSize="30"/>
+            </StackPanel>
+            <TimePicker x:Name="dteSalida" Grid.Row="4" Grid.Column="1" SelectedTime="{Binding Salida, Mode=TwoWay}" Margin="10, 0, 0, 0"/>
+
+            
+
+        </Grid>
 
     </Grid>
+
+
 </Page>

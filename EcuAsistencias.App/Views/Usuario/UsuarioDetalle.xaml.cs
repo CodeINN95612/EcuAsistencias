@@ -43,7 +43,7 @@ namespace EcuAsistencias.App.Views.Usuario
             {
                 UsuarioViewModel usuario = await UsuarioService.GetUsuarioAsync(Identificacion);
                 grdUsuario.DataContext = usuario;
-                dteNacimiento.SelectedDate = DateTime.Today;
+                dteNacimiento.SelectedDate = usuario.FechaNacimiento;
                 txtIdentificacion.IsReadOnly = true;
             }
         }
@@ -60,12 +60,13 @@ namespace EcuAsistencias.App.Views.Usuario
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             UsuarioViewModel usuario = grdUsuario.DataContext as UsuarioViewModel;
-            usuario.FechaNacimiento = dteNacimiento.Date.DateTime;
-            usuario.HorarioInicio = DateTime.Today + tmInicio.Time;
-            usuario.HorarioFin = DateTime.Today + tmFin.Time;
 
             if (usuario is null)
                 return;
+
+            usuario.FechaNacimiento = dteNacimiento.Date.DateTime;
+            usuario.HorarioInicio = DateTime.Today + tmInicio.Time;
+            usuario.HorarioFin = DateTime.Today + tmFin.Time;
 
             if (string.IsNullOrEmpty(Identificacion))
                 await UsuarioService.CrearAsync(usuario);

@@ -126,8 +126,6 @@ namespace EcuAsistencias.Controllers.API
                     Identificacion = usuarioView.Identificacion,
                     HorarioInicio = usuarioView.HorarioInicio,
                     IdRol = usuarioView.IdRol,
-                    CambioContrasenia = true,
-                    Contrasenia = Encriptar(usuarioView.Identificacion),
                     Nombre = usuarioView.Nombre
                 }).State = EntityState.Modified;
             }

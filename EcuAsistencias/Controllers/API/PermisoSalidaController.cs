@@ -102,15 +102,31 @@ namespace EcuAsistencias.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            db.PermisosSalida.Add(new PermisoSalida
+            if(PermisoSalidaExists(permisoSalidaView.Id))
             {
-                Id = permisoSalidaView.Id,
-                HoraPermiso = permisoSalidaView.HoraPermiso,
-                IdAsistencia = permisoSalidaView.IdAsistencia,
-                IdMotivo = permisoSalidaView.IdMotivo,
-                MotivoOtros = permisoSalidaView.MotivoOtros,
-                TiempoPermisoHoras = permisoSalidaView.TiempoPermisoHoras
-            });
+                PermisoSalida permiso = db.PermisosSalida.Find(permisoSalidaView.Id);
+                permiso.HoraPermiso = permisoSalidaView.HoraPermiso;
+                permiso.IdAsistencia = permisoSalidaView.IdAsistencia;
+                permiso.IdMotivo = permisoSalidaView.IdMotivo;
+                permiso.MotivoOtros = permisoSalidaView.MotivoOtros;
+                permiso.TiempoPermisoHoras = permisoSalidaView.TiempoPermisoHoras;
+
+                db.Entry(permiso).State = EntityState.Modified;
+            }
+			else
+			{
+                db.PermisosSalida.Add(new PermisoSalida
+                {
+                    Id = permisoSalidaView.Id,
+                    HoraPermiso = permisoSalidaView.HoraPermiso,
+                    IdAsistencia = permisoSalidaView.IdAsistencia,
+                    IdMotivo = permisoSalidaView.IdMotivo,
+                    MotivoOtros = permisoSalidaView.MotivoOtros,
+                    TiempoPermisoHoras = permisoSalidaView.TiempoPermisoHoras
+                });
+            }
+
+            
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = permisoSalidaView.Id }, permisoSalidaView);

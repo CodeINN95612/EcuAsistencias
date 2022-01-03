@@ -18,5 +18,25 @@ namespace EcuAsistencias.Core.Servicios
 		{
 			return await HttpService.GetApiById<RolViewModel, int>(Controller, id);
 		}
+		public static async Task GuardarAsync(RolViewModel rol)
+		{
+			//Validar
+			if (!RolValido(rol))
+				return;
+
+			await HttpService.Post(Controller, rol);
+		}
+
+		public static async Task EliminarAsync(RolViewModel rol)
+		{
+			await HttpService.DeleteById(Controller, rol.Id);
+		}
+
+		private static bool RolValido(RolViewModel rol)
+		{
+			if (string.IsNullOrEmpty(rol.Detalle))
+				return false;
+			return true;
+		}
 	}
 }

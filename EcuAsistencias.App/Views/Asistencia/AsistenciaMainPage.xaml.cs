@@ -25,7 +25,7 @@ namespace EcuAsistencias.App.Views.Asistencia
         public AsistenciaMainPage()
         {
             this.InitializeComponent();
-            frameContenido.Content = new AsistenciaListaPage();
+            frameContenido.Content = new AsistenciaListaPage(frameContenido);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

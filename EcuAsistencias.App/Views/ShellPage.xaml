@@ -38,7 +38,7 @@
             <winui:NavigationViewItem x:Uid="Shell_PermisosSalida" helpers:NavHelper.NavigateTo="viewsPermisoSalida:PermisoSalidaMainPage" />
             <winui:NavigationViewItem x:Uid="Shell_Roles" helpers:NavHelper.NavigateTo="viewsRol:RolMainPage" />
             <winui:NavigationViewItem x:Uid="Shell_Motivos" helpers:NavHelper.NavigateTo="viewsMotivo:MotivoMainPage" />
-            <winui:NavigationViewItem x:Uid="Shell_Reportes" helpers:NavHelper.NavigateTo="viewsReporte:ReporteMainPage" />
+            <!--<winui:NavigationViewItem x:Uid="Shell_Reportes" helpers:NavHelper.NavigateTo="viewsReporte:ReporteMainPage" />-->
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <ic:EventTriggerBehavior EventName="ItemInvoked">

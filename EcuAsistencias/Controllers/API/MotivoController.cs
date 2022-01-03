@@ -97,12 +97,23 @@ namespace EcuAsistencias.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            db.Motivos.Add(new Motivo
+            if (MotivoExists(motivoView.Id))
             {
-                Detalle = motivoView.Detalle,
-                EsOtro = motivoView.EsOtro,
-                Id = motivoView.Id
-            });
+                Motivo motivo = db.Motivos.Find(motivoView.Id);
+                motivo.Detalle = motivoView.Detalle;
+                motivo.EsOtro = motivoView.EsOtro;
+
+                db.Entry(motivo).State = EntityState.Modified;
+            }
+            else
+            {
+                db.Motivos.Add(new Motivo
+                {
+                    Detalle = motivoView.Detalle,
+                    EsOtro = motivoView.EsOtro,
+                    Id = motivoView.Id
+                });
+            }
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = motivoView.Id }, motivoView);

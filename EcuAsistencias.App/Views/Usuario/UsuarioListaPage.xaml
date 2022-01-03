@@ -30,8 +30,8 @@
                     <tg:DataGridTextColumn PropertyName="Identificacion" />
                     <tg:DataGridTextColumn PropertyName="Nombre" />
                     <tg:DataGridTextColumn PropertyName="Apellido" />
-                    <tg:DataGridTextColumn PropertyName="IdRol" />
                     <tg:DataGridTextColumn PropertyName="DetalleRol" />
+                    <tg:DataGridTextColumn PropertyName="Activo" />
                 </tg:RadDataGrid.Columns>
             </tg:RadDataGrid>
         </Grid>

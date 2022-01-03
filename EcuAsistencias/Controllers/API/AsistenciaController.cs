@@ -99,14 +99,29 @@ namespace EcuAsistencias.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            db.Asistencias.Add(new Asistencia
+            if(AsistenciaExists(asistenciaView.Id))
             {
-                Id = asistenciaView.Id,
-                Fecha = asistenciaView.Fecha,
-                IdentificacionUsuario = asistenciaView.IdentificacionUsuario,
-                Ingreso = asistenciaView.Ingreso,
-                Salida = asistenciaView.Salida
-            });
+                Asistencia asistencia = db.Asistencias.Find(asistenciaView.Id);
+                asistencia.Id = asistenciaView.Id;
+                asistencia.Fecha = asistenciaView.Fecha;
+                asistencia.IdentificacionUsuario = asistenciaView.IdentificacionUsuario;
+                asistencia.Ingreso = asistenciaView.Ingreso;
+                asistencia.Salida = asistenciaView.Salida;
+
+                db.Entry(asistencia).State = EntityState.Modified;
+            }
+            else
+            {
+                db.Asistencias.Add(new Asistencia
+                {
+                    Id = asistenciaView.Id,
+                    Fecha = asistenciaView.Fecha,
+                    IdentificacionUsuario = asistenciaView.IdentificacionUsuario,
+                    Ingreso = asistenciaView.Ingreso,
+                    Salida = asistenciaView.Salida
+                });
+            }
+
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = asistenciaView.Id }, asistenciaView);

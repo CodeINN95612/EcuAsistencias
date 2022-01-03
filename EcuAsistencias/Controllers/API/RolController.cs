@@ -96,12 +96,22 @@ namespace EcuAsistencias.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            db.Roles.Add(new Rol
+            if(RolExists(rolView.Id))
+			{
+                Rol rol = db.Roles.Find(rolView.Id);
+                rol.EsSupervisor = rolView.EsSupervisor;
+                rol.Detalle = rolView.Detalle;
+
+                db.Entry(rol).State = EntityState.Modified;
+            }
+			else
             {
-                Detalle = rolView.Detalle,
-                EsSupervisor = rolView.EsSupervisor,
-                Id = rolView.Id
-            });
+                db.Roles.Add(new Rol
+                {
+                    Detalle = rolView.Detalle,
+                    EsSupervisor = rolView.EsSupervisor
+                });
+            }
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = rolView.Id }, rolView);

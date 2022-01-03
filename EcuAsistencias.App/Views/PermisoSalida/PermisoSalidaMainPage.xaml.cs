@@ -20,7 +20,7 @@ namespace EcuAsistencias.App.Views.PermisoSalida
         public PermisoSalidaMainPage()
         {
             this.InitializeComponent();
-            frameContenido.Content = new PermisoSalidaListaPage();
+            frameContenido.Content = new PermisoSalidaListaPage(frameContenido);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

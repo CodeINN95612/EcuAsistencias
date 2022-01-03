@@ -25,7 +25,7 @@ namespace EcuAsistencias.App.Views.Motivo
         public MotivoMainPage()
         {
             this.InitializeComponent();
-            frameContenido.Content = new MotivoListaPage();
+            frameContenido.Content = new MotivoListaPage(frameContenido);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

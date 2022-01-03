@@ -1,30 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using EcuAsistencias.Core.Servicios;
+using EcuAsistencias.Core.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace EcuAsistencias.App.Views.Motivo
 {
-    /// <summary>
-    /// Una página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
-    /// </summary>
     public sealed partial class MotivoDetalle : Page
     {
-        public MotivoDetalle()
+        private Frame Padre;
+        private int Id;
+        public MotivoDetalle(Frame padre, int id)
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            Padre = padre;
+            Id = id;
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Id == 0)
+            {
+                grdMotivo.DataContext = new MotivoViewModel();
+                txtId.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                grdMotivo.DataContext = await MotivoService.GetMotivoAsync(Id);
+                txtId.Visibility = Visibility.Visible;
+                txtId.IsReadOnly = true;
+            }
+        }
+
+        private void btnRegresar_Click(object sender, RoutedEventArgs e)
+        {
+            Padre.Content = new MotivoListaPage(Padre);
+        }
+
+        private async void btnGuardar_Click(object sender, RoutedEventArgs e)
+        {
+            MotivoViewModel motivo = grdMotivo.DataContext as MotivoViewModel;
+
+            if (motivo is null)
+                return;
+
+            await MotivoService.GuardarAsync(motivo);
+
+            Padre.Content = new MotivoListaPage(Padre);
         }
     }
 }
