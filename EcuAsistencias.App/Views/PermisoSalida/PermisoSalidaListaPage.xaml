@@ -28,7 +28,7 @@
             <tg:RadDataGrid ColumnDataOperationsMode="Flyout" x:Name="grid" AutoGenerateColumns="False" GroupPanelPosition="Bottom">
                 <tg:RadDataGrid.Columns>
                     <tg:DataGridTextColumn PropertyName="Id" />
-                    <tg:DataGridTextColumn PropertyName="Asistencia" />
+                    <tg:DataGridTextColumn PropertyName="IdAsistencia" />
                     <tg:DataGridTextColumn PropertyName="HoraPermiso" />
                     <tg:DataGridTextColumn PropertyName="TiempoPermisoHoras" />
                 </tg:RadDataGrid.Columns>
