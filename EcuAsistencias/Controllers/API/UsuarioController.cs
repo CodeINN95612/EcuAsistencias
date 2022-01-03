@@ -117,17 +117,16 @@ namespace EcuAsistencias.Controllers.API
 
             if (UsuarioExists(usuarioView.Identificacion))
             {
-                db.Entry(new Usuario
-                {
-                    Activo = usuarioView.Activo,
-                    Apellido = usuarioView.Apellido,
-                    FechaNacimiento = usuarioView.FechaNacimiento,
-                    HorarioFin = usuarioView.HorarioFin,
-                    Identificacion = usuarioView.Identificacion,
-                    HorarioInicio = usuarioView.HorarioInicio,
-                    IdRol = usuarioView.IdRol,
-                    Nombre = usuarioView.Nombre
-                }).State = EntityState.Modified;
+                Usuario usuario = db.Usuarios.Find(usuarioView.Identificacion);
+                usuario.Activo = usuarioView.Activo;
+                usuario.Apellido = usuarioView.Apellido;
+                usuario.FechaNacimiento = usuarioView.FechaNacimiento;
+                usuario.HorarioFin = usuarioView.HorarioFin;
+                usuario.HorarioInicio = usuarioView.HorarioInicio;
+                usuario.IdRol = usuarioView.IdRol;
+                usuario.Nombre = usuarioView.Nombre;
+
+                db.Entry(usuario).State = EntityState.Modified;
             }
             else
             {
