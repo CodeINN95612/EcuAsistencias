@@ -1,0 +1,52 @@
+﻿<Page
+    x:Class="EcuAsistencias.App.Views.ShellPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:helpers="using:EcuAsistencias.App.Helpers"
+    
+    xmlns:viewsUsuario="using:EcuAsistencias.App.Views.Usuario"
+    xmlns:viewsRol="using:EcuAsistencias.App.Views.Rol"
+    xmlns:viewsMotivo="using:EcuAsistencias.App.Views.Motivo"
+    xmlns:viewsReporte="using:EcuAsistencias.App.Views.Reporte"
+    xmlns:viewsAsistencia="using:EcuAsistencias.App.Views.Asistencia"
+    xmlns:viewsPermisoSalida="using:EcuAsistencias.App.Views.PermisoSalida"
+    
+    xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    mc:Ignorable="d">
+
+    <i:Interaction.Behaviors>
+        <ic:EventTriggerBehavior EventName="Loaded">
+            <ic:InvokeCommandAction Command="{x:Bind ViewModel.LoadedCommand}" />
+        </ic:EventTriggerBehavior>
+    </i:Interaction.Behaviors>
+
+    <winui:NavigationView
+        x:Name="navigationView"
+        IsBackButtonVisible="Visible"
+        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+        SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
+        IsSettingsVisible="False"
+        PaneDisplayMode="Top"
+        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+        <winui:NavigationView.MenuItems>
+            <winui:NavigationViewItem x:Uid="Shell_Usuarios" helpers:NavHelper.NavigateTo="viewsUsuario:UsuarioMainPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Asistencias" helpers:NavHelper.NavigateTo="viewsAsistencia:AsistenciaMainPage" />
+            <winui:NavigationViewItem x:Uid="Shell_PermisosSalida" helpers:NavHelper.NavigateTo="viewsPermisoSalida:PermisoSalidaMainPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Roles" helpers:NavHelper.NavigateTo="viewsRol:RolMainPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Motivos" helpers:NavHelper.NavigateTo="viewsMotivo:MotivoMainPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Reportes" helpers:NavHelper.NavigateTo="viewsReporte:ReporteMainPage" />
+        </winui:NavigationView.MenuItems>
+        <i:Interaction.Behaviors>
+            <ic:EventTriggerBehavior EventName="ItemInvoked">
+                <ic:InvokeCommandAction Command="{x:Bind ViewModel.ItemInvokedCommand}" />
+            </ic:EventTriggerBehavior>
+        </i:Interaction.Behaviors>
+        <Grid>
+            <Frame x:Name="shellFrame" />
+        </Grid>
+    </winui:NavigationView>
+</Page>

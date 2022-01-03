@@ -62,5 +62,6 @@ namespace EcuAsistencias.Core.ViewModels
 		[Required(ErrorMessage = "Rol obligatorio")]
 		[Display(Name = "Rol")]
 		public int IdRol { get; set; }
+		public string DetalleRol { get; set; }
 	}
 }

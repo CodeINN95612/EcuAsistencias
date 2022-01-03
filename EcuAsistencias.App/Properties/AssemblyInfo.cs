@@ -1,10 +1,11 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// La información general de un ensamblado se controla mediante el siguiente 
-// conjunto de atributos. Cambie estos valores de atributo para modificar la información
-// asociada a un ensamblado.
+// General Information about an assembly is controlled through the following
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
 [assembly: AssemblyTitle("EcuAsistencias.App")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
@@ -14,16 +15,16 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// La información de versión de un ensamblado consta de los cuatro valores siguientes:
+// Version information for an assembly consists of the following four values:
 //
-//      Versión principal
-//      Versión secundaria 
-//      Número de compilación
-//      Revisión
+//      Major Version
+//      Minor Version
+//      Build Number
+//      Revision
 //
-// Puede especificar todos los valores o usar los valores predeterminados de número de compilación y de revisión
-// utilizando el carácter "*", como se muestra a continuación:
-//[assembly: AssemblyVersion("1.0.*")]
+// You can specify all the values or you can default the Build and Revision Numbers
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: ComVisible(false)]

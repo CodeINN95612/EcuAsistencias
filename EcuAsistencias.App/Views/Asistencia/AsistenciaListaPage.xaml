@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="EcuAsistencias.App.Views.Asistencia.AsistenciaListaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <tg:RadDataGrid ColumnDataOperationsMode="Flyout" x:Name="grid" AutoGenerateColumns="False" >
+                <tg:RadDataGrid.Columns>
+                    <tg:DataGridTextColumn PropertyName="OrderID" />
+                    <tg:DataGridDateColumn PropertyName="OrderDate" />
+                    <tg:DataGridTextColumn PropertyName="Company" />
+                    <tg:DataGridTextColumn PropertyName="ShipTo" />
+                </tg:RadDataGrid.Columns>
+            </tg:RadDataGrid>
+        </Grid>
+    </Grid>
+</Page>

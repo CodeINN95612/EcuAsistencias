@@ -30,6 +30,7 @@ namespace EcuAsistencias.Controllers.API
                 Identificacion = p.Identificacion,
                 HorarioInicio = p.HorarioInicio,
                 IdRol = p.IdRol,
+                DetalleRol = p.Rol.Detalle,
                 Nombre = p.Nombre
             });
         }
@@ -53,6 +54,7 @@ namespace EcuAsistencias.Controllers.API
                 Identificacion = usuario.Identificacion,
                 HorarioInicio = usuario.HorarioInicio,
                 IdRol = usuario.IdRol,
+                DetalleRol = usuario.Rol.Detalle,
                 Nombre = usuario.Nombre
             });
         }
@@ -113,19 +115,38 @@ namespace EcuAsistencias.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            db.Usuarios.Add(new Usuario
+            if (UsuarioExists(usuarioView.Identificacion))
             {
-                Activo = usuarioView.Activo,
-                Apellido = usuarioView.Apellido,
-                FechaNacimiento = usuarioView.FechaNacimiento,
-                HorarioFin = usuarioView.HorarioFin,
-                Identificacion = usuarioView.Identificacion,
-                HorarioInicio = usuarioView.HorarioInicio,
-                IdRol = usuarioView.IdRol,
-                CambioContrasenia = true,
-                Contrasenia = Encriptar(usuarioView.Identificacion),
-                Nombre = usuarioView.Nombre
-            });
+                db.Entry(new Usuario
+                {
+                    Activo = usuarioView.Activo,
+                    Apellido = usuarioView.Apellido,
+                    FechaNacimiento = usuarioView.FechaNacimiento,
+                    HorarioFin = usuarioView.HorarioFin,
+                    Identificacion = usuarioView.Identificacion,
+                    HorarioInicio = usuarioView.HorarioInicio,
+                    IdRol = usuarioView.IdRol,
+                    CambioContrasenia = true,
+                    Contrasenia = Encriptar(usuarioView.Identificacion),
+                    Nombre = usuarioView.Nombre
+                }).State = EntityState.Modified;
+            }
+            else
+            {
+                db.Usuarios.Add(new Usuario
+                {
+                    Activo = usuarioView.Activo,
+                    Apellido = usuarioView.Apellido,
+                    FechaNacimiento = usuarioView.FechaNacimiento,
+                    HorarioFin = usuarioView.HorarioFin,
+                    Identificacion = usuarioView.Identificacion,
+                    HorarioInicio = usuarioView.HorarioInicio,
+                    IdRol = usuarioView.IdRol,
+                    CambioContrasenia = true,
+                    Contrasenia = Encriptar(usuarioView.Identificacion),
+                    Nombre = usuarioView.Nombre
+                });
+            }
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = usuarioView.Identificacion }, usuarioView);
@@ -153,6 +174,7 @@ namespace EcuAsistencias.Controllers.API
                 Identificacion = usuario.Identificacion,
                 HorarioInicio = usuario.HorarioInicio,
                 IdRol = usuario.IdRol,
+                //DetalleRol = usuario.Rol.Detalle,
                 Nombre = usuario.Nombre
             });
         }
