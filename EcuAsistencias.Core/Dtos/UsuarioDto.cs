@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcuAsistencias.Core.ViewModels
+namespace EcuAsistencias.Core.Dtos
 {
-	public class UsuarioLoginViewModel
+	public class UsuarioLoginDto
 	{
 		[Required(ErrorMessage = "Identificacion Obligatoria", AllowEmptyStrings = false)]
 		[DataType(DataType.Text)]
@@ -20,7 +20,7 @@ namespace EcuAsistencias.Core.ViewModels
 		public string Contrasenia { get; set; }
 
 	}
-	public class UsuarioViewModel
+	public class UsuarioDto
 	{
 		[Required(ErrorMessage = "Identificacion Obligatoria", AllowEmptyStrings = false)]
 		[DataType(DataType.Text)]

@@ -1,4 +1,4 @@
-﻿using EcuAsistencias.Core.ViewModels;
+﻿using EcuAsistencias.Core.Dtos;
 using EcuAsistencias.Models;
 using System;
 using System.Collections.Generic;
@@ -16,10 +16,10 @@ namespace EcuAsistencias.Controllers.API
     {
         private EcuDB db = new EcuDB();
 
-        public IQueryable<AsistenciaViewModel> GetAsistencia()
+        public IQueryable<AsistenciaDto> GetAsistencia()
         {
 
-            return db.Asistencias.Select(p => new AsistenciaViewModel
+            return db.Asistencias.Select(p => new AsistenciaDto
             {
                 Id = p.Id,
                 Fecha = p.Fecha,
@@ -29,7 +29,7 @@ namespace EcuAsistencias.Controllers.API
             });
         }
         // GET: api/Asistencia/5
-        [ResponseType(typeof(AsistenciaViewModel))]
+        [ResponseType(typeof(AsistenciaDto))]
         public IHttpActionResult GetAsistencia(int id)
         {
             Asistencia asistencia = db.Asistencias.Find(id);
@@ -38,7 +38,7 @@ namespace EcuAsistencias.Controllers.API
                 return NotFound();
             }
 
-            return Ok(new AsistenciaViewModel
+            return Ok(new AsistenciaDto
             {
                 Id = asistencia.Id,
                 Fecha = asistencia.Fecha,
@@ -50,7 +50,7 @@ namespace EcuAsistencias.Controllers.API
 
         // PUT: api/Asistencias/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutAsistencia(int id, AsistenciaViewModel asistenciaView)
+        public IHttpActionResult PutAsistencia(int id, AsistenciaDto asistenciaView)
         {
             if (!ModelState.IsValid)
             {
@@ -91,8 +91,8 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // POST: api/Asistencias
-        [ResponseType(typeof(AsistenciaViewModel))]
-        public IHttpActionResult PostAsistencia(AsistenciaViewModel asistenciaView)
+        [ResponseType(typeof(AsistenciaDto))]
+        public IHttpActionResult PostAsistencia(AsistenciaDto asistenciaView)
         {
             if (!ModelState.IsValid)
             {
@@ -128,7 +128,7 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // DELETE: api/Asistenciaes/5
-        [ResponseType(typeof(AsistenciaViewModel))]
+        [ResponseType(typeof(AsistenciaDto))]
         public IHttpActionResult DeleteAsistencia(int id)
         {
             Asistencia asistencia = db.Asistencias.Find(id);
@@ -140,7 +140,7 @@ namespace EcuAsistencias.Controllers.API
             db.Asistencias.Remove(asistencia);
             db.SaveChanges();
 
-            return Ok(new AsistenciaViewModel
+            return Ok(new AsistenciaDto
             {
                 Id = asistencia.Id,
                 Fecha = asistencia.Fecha,

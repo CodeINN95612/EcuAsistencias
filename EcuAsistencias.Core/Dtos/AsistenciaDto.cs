@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcuAsistencias.Core.ViewModels
+namespace EcuAsistencias.Core.Dtos
 {
 	[Table("Asistencia", Schema = "Ecu")]
-	public class AsistenciaViewModel
+	public class AsistenciaDto
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -1,4 +1,4 @@
-﻿using EcuAsistencias.Core.ViewModels;
+﻿using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,26 +9,17 @@ namespace EcuAsistencias.Core.Servicios
 	public class UsuarioService
 	{
 		static readonly string Controller = "Usuario";
-		public static async Task<List<UsuarioViewModel>> GetAllUsuariosAsync()
+		public static async Task<List<UsuarioDto>> GetAllUsuariosAsync()
 		{
-			return await HttpService.GetApiLista<UsuarioViewModel>(Controller);
+			return await HttpService.GetApiLista<UsuarioDto>(Controller);
 		}
 		
-		public static async Task<UsuarioViewModel> GetUsuarioAsync(string identificacion)
+		public static async Task<UsuarioDto> GetUsuarioAsync(string identificacion)
 		{
-			return await HttpService.GetApiById<UsuarioViewModel, string>(Controller, identificacion);
+			return await HttpService.GetApiById<UsuarioDto, string>(Controller, identificacion);
 		}
 
-		public static async Task CrearAsync(UsuarioViewModel usuario)
-		{
-			//Validar
-			if (!UsuarioValido(usuario))
-				return;
-
-			await HttpService.Post(Controller, usuario);
-		}
-
-		public static async Task EditarAsync(UsuarioViewModel usuario)
+		public static async Task CrearAsync(UsuarioDto usuario)
 		{
 			//Validar
 			if (!UsuarioValido(usuario))
@@ -37,12 +28,21 @@ namespace EcuAsistencias.Core.Servicios
 			await HttpService.Post(Controller, usuario);
 		}
 
-		public static async Task EliminarAsync(UsuarioViewModel usuario)
+		public static async Task EditarAsync(UsuarioDto usuario)
+		{
+			//Validar
+			if (!UsuarioValido(usuario))
+				return;
+
+			await HttpService.Post(Controller, usuario);
+		}
+
+		public static async Task EliminarAsync(UsuarioDto usuario)
 		{
 			await HttpService.DeleteById(Controller, usuario.Identificacion);
 		}
 
-		private static bool UsuarioValido(UsuarioViewModel usuario)
+		private static bool UsuarioValido(UsuarioDto usuario)
 		{
 			if (string.IsNullOrEmpty(usuario.Identificacion) || string.IsNullOrEmpty(usuario.Nombre) 
 				|| string.IsNullOrEmpty(usuario.Apellido) || usuario.IdRol == 0)

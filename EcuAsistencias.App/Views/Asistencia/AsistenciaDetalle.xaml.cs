@@ -1,21 +1,11 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 
 namespace EcuAsistencias.App.Views.Asistencia
@@ -37,14 +27,14 @@ namespace EcuAsistencias.App.Views.Asistencia
 
             if (Id == 0)
             {
-                grdAsistencia.DataContext = new AsistenciaViewModel();
+                grdAsistencia.DataContext = new AsistenciaDto();
                 dteFecha.SelectedDate = DateTime.Today;
                 dteIngreso.SelectedTime = DateTime.Today.TimeOfDay;
                 dteSalida.SelectedTime = DateTime.Today.TimeOfDay;
             }
             else
             {
-                AsistenciaViewModel asistencia = await AsistenciaService.GetAsistenciaAsync(Id);
+                AsistenciaDto asistencia = await AsistenciaService.GetAsistenciaAsync(Id);
                 grdAsistencia.DataContext = asistencia;
                 dteFecha.SelectedDate = asistencia.Fecha;
                 dteIngreso.SelectedTime = asistencia.Ingreso.TimeOfDay;
@@ -54,8 +44,8 @@ namespace EcuAsistencias.App.Views.Asistencia
         }
         private async Task CargarRequisitos()
         {
-            List<UsuarioViewModel> usuarios = await UsuarioService.GetAllUsuariosAsync();
-            cmdUsuario.ItemsSource = new ObservableCollection<UsuarioViewModel>(usuarios);
+            List<UsuarioDto> usuarios = await UsuarioService.GetAllUsuariosAsync();
+            cmdUsuario.ItemsSource = new ObservableCollection<UsuarioDto>(usuarios);
         }
 
         private void btnRegresar_Click(object sender, RoutedEventArgs e)
@@ -64,7 +54,7 @@ namespace EcuAsistencias.App.Views.Asistencia
         }
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            AsistenciaViewModel asistencia = grdAsistencia.DataContext as AsistenciaViewModel;
+            AsistenciaDto asistencia = grdAsistencia.DataContext as AsistenciaDto;
 
             if (asistencia is null)
                 return;

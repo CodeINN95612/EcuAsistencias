@@ -1,6 +1,6 @@
 ﻿using System;
 
-using EcuAsistencias.App.ViewModels;
+using EcuAsistencias.App.Dtos;
 
 using Windows.UI.Xaml.Controls;
 

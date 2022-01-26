@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 namespace EcuAsistencias.App.Views.Motivo
@@ -19,7 +19,7 @@ namespace EcuAsistencias.App.Views.Motivo
         {
             if (Id == 0)
             {
-                grdMotivo.DataContext = new MotivoViewModel();
+                grdMotivo.DataContext = new MotivoDto();
                 txtId.Visibility = Visibility.Collapsed;
             }
             else
@@ -37,7 +37,7 @@ namespace EcuAsistencias.App.Views.Motivo
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            MotivoViewModel motivo = grdMotivo.DataContext as MotivoViewModel;
+            MotivoDto motivo = grdMotivo.DataContext as MotivoDto;
 
             if (motivo is null)
                 return;

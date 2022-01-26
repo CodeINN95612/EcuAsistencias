@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using PagedList;
 using System.Security.Cryptography;
 using System.Net;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers
@@ -33,7 +33,7 @@ namespace EcuAsistencias.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Login(UsuarioLoginViewModel loginUser)
+		public ActionResult Login(UsuarioLoginDto loginUser)
 		{
 
 			//Validar Modelo
@@ -88,7 +88,7 @@ namespace EcuAsistencias.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult newUser(UsuarioViewModel nuevo)
+		public ActionResult newUser(UsuarioDto nuevo)
 		{
 			ViewBag.IdRol = new SelectList(db.Roles, "Id", "Detalle");
 			if (!ModelState.IsValid)

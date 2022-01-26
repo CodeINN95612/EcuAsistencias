@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -20,8 +20,8 @@ namespace EcuAsistencias.App.Views.Usuario
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            List<UsuarioViewModel> usuarios = await UsuarioService.GetAllUsuariosAsync();
-            grid.ItemsSource = new ObservableCollection<UsuarioViewModel>(usuarios);
+            List<UsuarioDto> usuarios = await UsuarioService.GetAllUsuariosAsync();
+            grid.ItemsSource = new ObservableCollection<UsuarioDto>(usuarios);
         }
         private void btnNuevo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -30,18 +30,18 @@ namespace EcuAsistencias.App.Views.Usuario
 
         private void btnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            UsuarioViewModel seleccionado = grid.SelectedItem as UsuarioViewModel;
+            UsuarioDto seleccionado = grid.SelectedItem as UsuarioDto;
             if(seleccionado != null)
                 CargarDetalle(seleccionado.Identificacion);
         }
 
         private async void btnBorrar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            UsuarioViewModel seleccionado = grid.SelectedItem as UsuarioViewModel;
+            UsuarioDto seleccionado = grid.SelectedItem as UsuarioDto;
             if (seleccionado != null)
                 await UsuarioService.EliminarAsync(seleccionado);
-            List<UsuarioViewModel> usuarios = await UsuarioService.GetAllUsuariosAsync();
-            grid.ItemsSource = new ObservableCollection<UsuarioViewModel>(usuarios);
+            List<UsuarioDto> usuarios = await UsuarioService.GetAllUsuariosAsync();
+            grid.ItemsSource = new ObservableCollection<UsuarioDto>(usuarios);
         }
 
         private void CargarDetalle(string identificacion)

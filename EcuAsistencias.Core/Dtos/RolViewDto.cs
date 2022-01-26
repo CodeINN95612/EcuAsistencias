@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcuAsistencias.Core.ViewModels
+namespace EcuAsistencias.Core.Dtos
 {
 	[Table("Rol", Schema = "Ecu")]
-	public class RolViewModel
+	public class RolDto
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]

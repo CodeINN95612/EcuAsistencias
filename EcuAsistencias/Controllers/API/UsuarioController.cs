@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Description;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers.API
@@ -19,9 +19,9 @@ namespace EcuAsistencias.Controllers.API
         private EcuDB db = new EcuDB();
 
         // GET: api/Usuarios
-        public IQueryable<UsuarioViewModel> GetUsuario()
+        public IQueryable<UsuarioDto> GetUsuario()
         {
-            return db.Usuarios.Select( p => new UsuarioViewModel
+            return db.Usuarios.Select( p => new UsuarioDto
             {
                 Activo = p.Activo,
                 Apellido = p.Apellido,
@@ -36,7 +36,7 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // GET: api/Usuarios/5
-        [ResponseType(typeof(UsuarioViewModel))]
+        [ResponseType(typeof(UsuarioDto))]
         public IHttpActionResult GetUsuario(string id)
         {
             Usuario usuario = db.Usuarios.Find(id);
@@ -45,7 +45,7 @@ namespace EcuAsistencias.Controllers.API
                 return NotFound();
             }
 
-            return Ok(new UsuarioViewModel
+            return Ok(new UsuarioDto
             {
                 Activo = usuario.Activo,
                 Apellido = usuario.Apellido,
@@ -61,7 +61,7 @@ namespace EcuAsistencias.Controllers.API
 
         // PUT: api/Usuarios/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUsuario(string id, UsuarioViewModel usuarioView)
+        public IHttpActionResult PutUsuario(string id, UsuarioDto usuarioView)
         {
             if (!ModelState.IsValid)
             {
@@ -107,8 +107,8 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // POST: api/Usuarios
-        [ResponseType(typeof(UsuarioViewModel))]
-        public IHttpActionResult PostUsuario(UsuarioViewModel usuarioView)
+        [ResponseType(typeof(UsuarioDto))]
+        public IHttpActionResult PostUsuario(UsuarioDto usuarioView)
         {
             if (!ModelState.IsValid)
             {
@@ -150,7 +150,7 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // DELETE: api/Usuarioes/5
-        [ResponseType(typeof(UsuarioViewModel))]
+        [ResponseType(typeof(UsuarioDto))]
         public IHttpActionResult DeleteUsuario(string id)
         {
             Usuario usuario = db.Usuarios.Find(id);
@@ -162,7 +162,7 @@ namespace EcuAsistencias.Controllers.API
             db.Usuarios.Remove(usuario);
             db.SaveChanges();
 
-            return Ok(new UsuarioViewModel
+            return Ok(new UsuarioDto
             {
                 Activo = usuario.Activo,
                 Apellido = usuario.Apellido,

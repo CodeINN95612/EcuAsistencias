@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,8 +20,8 @@ namespace EcuAsistencias.App.Views.PermisoSalida
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            List<PermisoSalidaViewModel> usuarios = await PermisoSalidaService.GetAllPermisosSalidaAsync();
-            grid.ItemsSource = new ObservableCollection<PermisoSalidaViewModel>(usuarios);
+            List<PermisoSalidaDto> usuarios = await PermisoSalidaService.GetAllPermisosSalidaAsync();
+            grid.ItemsSource = new ObservableCollection<PermisoSalidaDto>(usuarios);
         }
         private void btnNuevo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -30,19 +30,19 @@ namespace EcuAsistencias.App.Views.PermisoSalida
 
         private void btnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            PermisoSalidaViewModel seleccionado = grid.SelectedItem as PermisoSalidaViewModel;
+            PermisoSalidaDto seleccionado = grid.SelectedItem as PermisoSalidaDto;
             if (seleccionado != null)
                 CargarDetalle(seleccionado.Id);
         }
 
         private async void btnBorrar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            PermisoSalidaViewModel seleccionado = grid.SelectedItem as PermisoSalidaViewModel;
+            PermisoSalidaDto seleccionado = grid.SelectedItem as PermisoSalidaDto;
             if (seleccionado != null)
                 await PermisoSalidaService.EliminarAsync(seleccionado);
 
-            List<PermisoSalidaViewModel> roles = await PermisoSalidaService.GetAllPermisosSalidaAsync();
-            grid.ItemsSource = new ObservableCollection<PermisoSalidaViewModel>(roles);
+            List<PermisoSalidaDto> roles = await PermisoSalidaService.GetAllPermisosSalidaAsync();
+            grid.ItemsSource = new ObservableCollection<PermisoSalidaDto>(roles);
         }
 
         private void CargarDetalle(int id)

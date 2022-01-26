@@ -46,12 +46,12 @@ namespace EcuAsistencias.App
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(Views.Usuario.UsuarioMainPage), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(Views.MainPage));
         }
 
         private UIElement CreateShell()
         {
-            return new Views.ShellPage();
+            return new Views.MainPage();
         }
     }
 }

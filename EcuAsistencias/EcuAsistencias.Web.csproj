@@ -155,6 +155,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\API\LoginController.cs" />
     <Compile Include="Controllers\API\PermisoSalidaController.cs" />
     <Compile Include="Controllers\API\AsistenciaController.cs" />
     <Compile Include="Controllers\API\MotivoController.cs" />

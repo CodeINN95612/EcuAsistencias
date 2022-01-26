@@ -1,4 +1,4 @@
-﻿using EcuAsistencias.Core.ViewModels;
+﻿using EcuAsistencias.Core.Dtos;
 using EcuAsistencias.Models;
 using System;
 using System.Collections.Generic;
@@ -16,10 +16,10 @@ namespace EcuAsistencias.Controllers.API
     {
         private EcuDB db = new EcuDB();
 
-        public IQueryable<PermisoSalidaViewModel> GetPermisoSalida()
+        public IQueryable<PermisoSalidaDto> GetPermisoSalida()
         {
 
-            return db.PermisosSalida.Select(p => new PermisoSalidaViewModel
+            return db.PermisosSalida.Select(p => new PermisoSalidaDto
             {
                 Id = p.Id,
                 HoraPermiso = p.HoraPermiso,
@@ -30,7 +30,7 @@ namespace EcuAsistencias.Controllers.API
             });
         }
         // GET: api/PermisoSalida/5
-        [ResponseType(typeof(PermisoSalidaViewModel))]
+        [ResponseType(typeof(PermisoSalidaDto))]
         public IHttpActionResult GetPermisoSalida(int id)
         {
             PermisoSalida permisoSalida = db.PermisosSalida.Find(id);
@@ -39,7 +39,7 @@ namespace EcuAsistencias.Controllers.API
                 return NotFound();
             }
 
-            return Ok(new PermisoSalidaViewModel
+            return Ok(new PermisoSalidaDto
             {
                 Id = permisoSalida.Id,
                 HoraPermiso = permisoSalida.HoraPermiso,
@@ -52,7 +52,7 @@ namespace EcuAsistencias.Controllers.API
 
         // PUT: api/PermisoSalidas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPermisoSalida(int id, PermisoSalidaViewModel permisoSalidaView)
+        public IHttpActionResult PutPermisoSalida(int id, PermisoSalidaDto permisoSalidaView)
         {
             if (!ModelState.IsValid)
             {
@@ -94,8 +94,8 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // POST: api/PermisoSalidas
-        [ResponseType(typeof(PermisoSalidaViewModel))]
-        public IHttpActionResult PostPermisoSalida(PermisoSalidaViewModel permisoSalidaView)
+        [ResponseType(typeof(PermisoSalidaDto))]
+        public IHttpActionResult PostPermisoSalida(PermisoSalidaDto permisoSalidaView)
         {
             if (!ModelState.IsValid)
             {
@@ -133,7 +133,7 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // DELETE: api/PermisoSalidaes/5
-        [ResponseType(typeof(PermisoSalidaViewModel))]
+        [ResponseType(typeof(PermisoSalidaDto))]
         public IHttpActionResult DeletePermisoSalida(int id)
         {
             PermisoSalida permisoSalida = db.PermisosSalida.Find(id);
@@ -145,7 +145,7 @@ namespace EcuAsistencias.Controllers.API
             db.PermisosSalida.Remove(permisoSalida);
             db.SaveChanges();
 
-            return Ok(new PermisoSalidaViewModel
+            return Ok(new PermisoSalidaDto
             {
                 Id = permisoSalida.Id,
                 HoraPermiso = permisoSalida.HoraPermiso,

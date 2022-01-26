@@ -1,4 +1,4 @@
-﻿using EcuAsistencias.Core.ViewModels;
+﻿using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +10,16 @@ namespace EcuAsistencias.Core.Servicios
 	public class PermisoSalidaService
 	{
 		static readonly string Controller = "PermisoSalida";
-		public static async Task<List<PermisoSalidaViewModel>> GetAllPermisosSalidaAsync()
+		public static async Task<List<PermisoSalidaDto>> GetAllPermisosSalidaAsync()
 		{
-			return await HttpService.GetApiLista<PermisoSalidaViewModel>(Controller);
+			return await HttpService.GetApiLista<PermisoSalidaDto>(Controller);
 		}
 
-		public static async Task<PermisoSalidaViewModel> GetPermisoSalidaAsync(int id)
+		public static async Task<PermisoSalidaDto> GetPermisoSalidaAsync(int id)
 		{
-			return await HttpService.GetApiById<PermisoSalidaViewModel, int>(Controller, id);
+			return await HttpService.GetApiById<PermisoSalidaDto, int>(Controller, id);
 		}
-		public static async Task GuardarAsync(PermisoSalidaViewModel permisoSalida)
+		public static async Task GuardarAsync(PermisoSalidaDto permisoSalida)
 		{
 			//Validar
 			if (!await PermisoSalidaValido(permisoSalida))
@@ -28,15 +28,15 @@ namespace EcuAsistencias.Core.Servicios
 			await HttpService.Post(Controller, permisoSalida);
 		}
 
-		public static async Task EliminarAsync(PermisoSalidaViewModel permisoSalida)
+		public static async Task EliminarAsync(PermisoSalidaDto permisoSalida)
 		{
 			await HttpService.DeleteById(Controller, permisoSalida.Id);
 		}
 
-		private static async Task<bool> PermisoSalidaValido(PermisoSalidaViewModel permisoSalida)
+		private static async Task<bool> PermisoSalidaValido(PermisoSalidaDto permisoSalida)
 		{
-			List<MotivoViewModel> motivos = await MotivoService.GetAllMotivosAsync();
-			MotivoViewModel motivoActual = motivos.FirstOrDefault(p => p.Id == permisoSalida.IdMotivo);
+			List<MotivoDto> motivos = await MotivoService.GetAllMotivosAsync();
+			MotivoDto motivoActual = motivos.FirstOrDefault(p => p.Id == permisoSalida.IdMotivo);
 			if (motivoActual is null)
 				return false;
 

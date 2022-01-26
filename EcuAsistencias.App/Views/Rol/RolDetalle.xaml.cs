@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +24,7 @@ namespace EcuAsistencias.App.Views.Rol
         {
             if (Id == 0)
             {
-                grdRol.DataContext = new RolViewModel();
+                grdRol.DataContext = new RolDto();
                 txtId.Visibility = Visibility.Collapsed;
             }
             else
@@ -42,7 +42,7 @@ namespace EcuAsistencias.App.Views.Rol
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            RolViewModel rol = grdRol.DataContext as RolViewModel;
+            RolDto rol = grdRol.DataContext as RolDto;
 
             if (rol is null)
                 return;

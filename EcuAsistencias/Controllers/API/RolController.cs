@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Description;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers.API
@@ -18,10 +18,10 @@ namespace EcuAsistencias.Controllers.API
     {
         private EcuDB db = new EcuDB();
 
-        public IQueryable<RolViewModel> GetRol()
+        public IQueryable<RolDto> GetRol()
         {
 
-            return db.Roles.Select(p => new RolViewModel
+            return db.Roles.Select(p => new RolDto
             {
                 Detalle = p.Detalle,
                 EsSupervisor = p.EsSupervisor,
@@ -29,7 +29,7 @@ namespace EcuAsistencias.Controllers.API
             });
         }
         // GET: api/Rol/5
-        [ResponseType(typeof(RolViewModel))]
+        [ResponseType(typeof(RolDto))]
         public IHttpActionResult GetRol(int id)
         {
             Rol rol = db.Roles.Find(id);
@@ -38,7 +38,7 @@ namespace EcuAsistencias.Controllers.API
                 return NotFound();
             }
 
-            return Ok(new RolViewModel
+            return Ok(new RolDto
             {
                 Detalle = rol.Detalle,
                 EsSupervisor = rol.EsSupervisor,
@@ -48,7 +48,7 @@ namespace EcuAsistencias.Controllers.API
 
         // PUT: api/Rols/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutRol(int id, RolViewModel rolView)
+        public IHttpActionResult PutRol(int id, RolDto rolView)
         {
             if (!ModelState.IsValid)
             {
@@ -88,8 +88,8 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // POST: api/Rols
-        [ResponseType(typeof(RolViewModel))]
-        public IHttpActionResult PostRol(RolViewModel rolView)
+        [ResponseType(typeof(RolDto))]
+        public IHttpActionResult PostRol(RolDto rolView)
         {
             if (!ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // DELETE: api/Roles/5
-        [ResponseType(typeof(RolViewModel))]
+        [ResponseType(typeof(RolDto))]
         public IHttpActionResult DeleteRol(int id)
         {
             Rol Rol = db.Roles.Find(id);
@@ -130,7 +130,7 @@ namespace EcuAsistencias.Controllers.API
             db.Roles.Remove(Rol);
             db.SaveChanges();
 
-            return Ok(new RolViewModel
+            return Ok(new RolDto
             {
                 Detalle = Rol.Detalle,
                 EsSupervisor = Rol.EsSupervisor,

@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,12 +36,12 @@ namespace EcuAsistencias.App.Views.Usuario
 
             if(Identificacion == "")
             {
-                grdUsuario.DataContext = new UsuarioViewModel();
+                grdUsuario.DataContext = new UsuarioDto();
                 dteNacimiento.SelectedDate = DateTime.Today;
             }
             else
             {
-                UsuarioViewModel usuario = await UsuarioService.GetUsuarioAsync(Identificacion);
+                UsuarioDto usuario = await UsuarioService.GetUsuarioAsync(Identificacion);
                 grdUsuario.DataContext = usuario;
                 dteNacimiento.SelectedDate = usuario.FechaNacimiento;
                 txtIdentificacion.IsReadOnly = true;
@@ -49,8 +49,8 @@ namespace EcuAsistencias.App.Views.Usuario
         }
         private async Task CargarRequisitos()
         {
-            List<RolViewModel> roles = await RolService.GetAllRolesAsync();
-            cmbRol.ItemsSource = new ObservableCollection<RolViewModel>(roles);
+            List<RolDto> roles = await RolService.GetAllRolesAsync();
+            cmbRol.ItemsSource = new ObservableCollection<RolDto>(roles);
         }
 
         private void btnRegresar_Click(object sender, RoutedEventArgs e)
@@ -59,7 +59,7 @@ namespace EcuAsistencias.App.Views.Usuario
         }
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            UsuarioViewModel usuario = grdUsuario.DataContext as UsuarioViewModel;
+            UsuarioDto usuario = grdUsuario.DataContext as UsuarioDto;
 
             if (usuario is null)
                 return;

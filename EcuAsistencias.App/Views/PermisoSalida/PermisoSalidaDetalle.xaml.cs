@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,12 +37,12 @@ namespace EcuAsistencias.App.Views.PermisoSalida
 
             if (Id == 0)
             {
-                grdPermisoSalida.DataContext = new PermisoSalidaViewModel();
+                grdPermisoSalida.DataContext = new PermisoSalidaDto();
                 dteHoraPermiso.SelectedTime = DateTime.Today.TimeOfDay;
             }
             else
             {
-                PermisoSalidaViewModel permisoSalida = await PermisoSalidaService.GetPermisoSalidaAsync(Id);
+                PermisoSalidaDto permisoSalida = await PermisoSalidaService.GetPermisoSalidaAsync(Id);
                 grdPermisoSalida.DataContext = permisoSalida;
                 dteHoraPermiso.SelectedTime = permisoSalida.HoraPermiso.TimeOfDay;
                 txtTiempoPermisoHoras.Text = permisoSalida.TiempoPermisoHoras.ToString();
@@ -50,8 +50,8 @@ namespace EcuAsistencias.App.Views.PermisoSalida
         }
         private async Task CargarRequisitos()
         {
-            List<AsistenciaViewModel> asistencias = await AsistenciaService.GetAllAsistenciasAsync();
-            List<MotivoViewModel> motivos = await MotivoService.GetAllMotivosAsync();
+            List<AsistenciaDto> asistencias = await AsistenciaService.GetAllAsistenciasAsync();
+            List<MotivoDto> motivos = await MotivoService.GetAllMotivosAsync();
             cmbAsistencias.ItemsSource = asistencias;
             cmbMotivo.ItemsSource = motivos;
         }
@@ -62,7 +62,7 @@ namespace EcuAsistencias.App.Views.PermisoSalida
         }
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
-            PermisoSalidaViewModel permisoSalida = grdPermisoSalida.DataContext as PermisoSalidaViewModel;
+            PermisoSalidaDto permisoSalida = grdPermisoSalida.DataContext as PermisoSalidaDto;
 
             if (permisoSalida is null)
                 return;
@@ -77,7 +77,7 @@ namespace EcuAsistencias.App.Views.PermisoSalida
 
         private void cmdMotivo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MotivoViewModel seleccionado = cmbMotivo.SelectedItem as MotivoViewModel;
+            MotivoDto seleccionado = cmbMotivo.SelectedItem as MotivoDto;
             if(seleccionado.EsOtro)
             {
                 panelMotivoOtros.Visibility = Visibility.Visible;

@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Description;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using EcuAsistencias.Models;
 
 namespace EcuAsistencias.Controllers.API
@@ -18,10 +18,10 @@ namespace EcuAsistencias.Controllers.API
     {
         private EcuDB db = new EcuDB();
 
-        public IQueryable<MotivoViewModel> GetMotivo()
+        public IQueryable<MotivoDto> GetMotivo()
         {
 
-            return db.Motivos.Select(p => new MotivoViewModel
+            return db.Motivos.Select(p => new MotivoDto
             {
                 Detalle = p.Detalle,
                 EsOtro = p.EsOtro,
@@ -29,7 +29,7 @@ namespace EcuAsistencias.Controllers.API
             });
         }
         // GET: api/Motivo/5
-        [ResponseType(typeof(MotivoViewModel))]
+        [ResponseType(typeof(MotivoDto))]
         public IHttpActionResult GetMotivo(int id)
         {
             Motivo motivo = db.Motivos.Find(id);
@@ -38,7 +38,7 @@ namespace EcuAsistencias.Controllers.API
                 return NotFound();
             }
 
-            return Ok(new MotivoViewModel
+            return Ok(new MotivoDto
             {
                 Detalle = motivo.Detalle,
                 EsOtro = motivo.EsOtro,
@@ -49,7 +49,7 @@ namespace EcuAsistencias.Controllers.API
 
         // PUT: api/Motivos/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutMotivo(int id, MotivoViewModel motivoView)
+        public IHttpActionResult PutMotivo(int id, MotivoDto motivoView)
         {
             if (!ModelState.IsValid)
             {
@@ -89,8 +89,8 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // POST: api/Motivos
-        [ResponseType(typeof(MotivoViewModel))]
-        public IHttpActionResult PostMotivo(MotivoViewModel motivoView)
+        [ResponseType(typeof(MotivoDto))]
+        public IHttpActionResult PostMotivo(MotivoDto motivoView)
         {
             if (!ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace EcuAsistencias.Controllers.API
         }
 
         // DELETE: api/Motivoes/5
-        [ResponseType(typeof(MotivoViewModel))]
+        [ResponseType(typeof(MotivoDto))]
         public IHttpActionResult DeleteMotivo(int id)
         {
             Motivo motivo = db.Motivos.Find(id);
@@ -132,7 +132,7 @@ namespace EcuAsistencias.Controllers.API
             db.Motivos.Remove(motivo);
             db.SaveChanges();
 
-            return Ok(new MotivoViewModel
+            return Ok(new MotivoDto
             {
                 Detalle = motivo.Detalle,
                 EsOtro = motivo.EsOtro,

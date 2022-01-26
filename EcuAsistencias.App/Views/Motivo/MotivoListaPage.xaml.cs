@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using EcuAsistencias.App.ViewModels;
+using EcuAsistencias.App.Dtos;
 using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -21,8 +21,8 @@ namespace EcuAsistencias.App.Views.Motivo
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            List<MotivoViewModel> usuarios = await MotivoService.GetAllMotivosAsync();
-            grid.ItemsSource = new ObservableCollection<MotivoViewModel>(usuarios);
+            List<MotivoDto> usuarios = await MotivoService.GetAllMotivosAsync();
+            grid.ItemsSource = new ObservableCollection<MotivoDto>(usuarios);
         }
         private void btnNuevo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -31,19 +31,19 @@ namespace EcuAsistencias.App.Views.Motivo
 
         private void btnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MotivoViewModel seleccionado = grid.SelectedItem as MotivoViewModel;
+            MotivoDto seleccionado = grid.SelectedItem as MotivoDto;
             if (seleccionado != null)
                 CargarDetalle(seleccionado.Id);
         }
 
         private async void btnBorrar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            MotivoViewModel seleccionado = grid.SelectedItem as MotivoViewModel;
+            MotivoDto seleccionado = grid.SelectedItem as MotivoDto;
             if (seleccionado != null)
                 await MotivoService.EliminarAsync(seleccionado);
 
-            List<MotivoViewModel> motivoes = await MotivoService.GetAllMotivosAsync();
-            grid.ItemsSource = new ObservableCollection<MotivoViewModel>(motivoes);
+            List<MotivoDto> motivoes = await MotivoService.GetAllMotivosAsync();
+            grid.ItemsSource = new ObservableCollection<MotivoDto>(motivoes);
         }
 
         private void CargarDetalle(int id)

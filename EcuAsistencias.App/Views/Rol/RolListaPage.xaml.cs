@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,8 +20,8 @@ namespace EcuAsistencias.App.Views.Rol
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            List<RolViewModel> usuarios = await RolService.GetAllRolesAsync();
-            grid.ItemsSource = new ObservableCollection<RolViewModel>(usuarios);
+            List<RolDto> usuarios = await RolService.GetAllRolesAsync();
+            grid.ItemsSource = new ObservableCollection<RolDto>(usuarios);
         }
         private void btnNuevo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -30,19 +30,19 @@ namespace EcuAsistencias.App.Views.Rol
 
         private void btnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            RolViewModel seleccionado = grid.SelectedItem as RolViewModel;
+            RolDto seleccionado = grid.SelectedItem as RolDto;
             if (seleccionado != null)
                 CargarDetalle(seleccionado.Id);
         }
 
         private async void btnBorrar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            RolViewModel seleccionado = grid.SelectedItem as RolViewModel;
+            RolDto seleccionado = grid.SelectedItem as RolDto;
             if (seleccionado != null)
                 await RolService.EliminarAsync(seleccionado);
 
-            List<RolViewModel> roles = await RolService.GetAllRolesAsync();
-            grid.ItemsSource = new ObservableCollection<RolViewModel>(roles);
+            List<RolDto> roles = await RolService.GetAllRolesAsync();
+            grid.ItemsSource = new ObservableCollection<RolDto>(roles);
         }
 
         private void CargarDetalle(int id)

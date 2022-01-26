@@ -1,5 +1,5 @@
 ﻿using EcuAsistencias.Core.Servicios;
-using EcuAsistencias.Core.ViewModels;
+using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,8 +20,8 @@ namespace EcuAsistencias.App.Views.Asistencia
 
         private async void Page_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            List<AsistenciaViewModel> asistencias = await AsistenciaService.GetAllAsistenciasAsync();
-            grid.ItemsSource = new ObservableCollection<AsistenciaViewModel>(asistencias);
+            List<AsistenciaDto> asistencias = await AsistenciaService.GetAllAsistenciasAsync();
+            grid.ItemsSource = new ObservableCollection<AsistenciaDto>(asistencias);
         }
         private void btnNuevo_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
@@ -30,19 +30,19 @@ namespace EcuAsistencias.App.Views.Asistencia
 
         private void btnEditar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            AsistenciaViewModel seleccionado = grid.SelectedItem as AsistenciaViewModel;
+            AsistenciaDto seleccionado = grid.SelectedItem as AsistenciaDto;
             if (seleccionado != null)
                 CargarDetalle(seleccionado.Id);
         }
 
         private async void btnBorrar_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            AsistenciaViewModel seleccionado = grid.SelectedItem as AsistenciaViewModel;
+            AsistenciaDto seleccionado = grid.SelectedItem as AsistenciaDto;
             if (seleccionado != null)
                 await AsistenciaService.EliminarAsync(seleccionado);
 
-            List<AsistenciaViewModel> asistencias = await AsistenciaService.GetAllAsistenciasAsync();
-            grid.ItemsSource = new ObservableCollection<AsistenciaViewModel>(asistencias);
+            List<AsistenciaDto> asistencias = await AsistenciaService.GetAllAsistenciasAsync();
+            grid.ItemsSource = new ObservableCollection<AsistenciaDto>(asistencias);
         }
 
         private void CargarDetalle(int id)

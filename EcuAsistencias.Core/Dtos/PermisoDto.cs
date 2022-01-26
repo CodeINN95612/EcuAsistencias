@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EcuAsistencias.Core.ViewModels
+namespace EcuAsistencias.Core.Dtos
 {
 	[Table("PermisosSalida", Schema = "Ecu")]
-	public class PermisoSalidaViewModel
-	{
+	public class PermisoSalidaDto
+    {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

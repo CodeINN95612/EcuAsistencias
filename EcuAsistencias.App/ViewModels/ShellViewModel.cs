@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Navigation;
 
 using WinUI = Microsoft.UI.Xaml.Controls;
 
-namespace EcuAsistencias.App.ViewModels
+namespace EcuAsistencias.App.Dtos
 {
     public class ShellViewModel : ObservableObject
     {

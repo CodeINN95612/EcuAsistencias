@@ -1,4 +1,4 @@
-﻿using EcuAsistencias.Core.ViewModels;
+﻿using EcuAsistencias.Core.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,16 +9,16 @@ namespace EcuAsistencias.Core.Servicios
 	public class MotivoService
 	{
 		static readonly string Controller = "Motivo";
-		public static async Task<List<MotivoViewModel>> GetAllMotivosAsync()
+		public static async Task<List<MotivoDto>> GetAllMotivosAsync()
 		{
-			return await HttpService.GetApiLista<MotivoViewModel>(Controller);
+			return await HttpService.GetApiLista<MotivoDto>(Controller);
 		}
 
-		public static async Task<MotivoViewModel> GetMotivoAsync(int id)
+		public static async Task<MotivoDto> GetMotivoAsync(int id)
 		{
-			return await HttpService.GetApiById<MotivoViewModel, int>(Controller, id);
+			return await HttpService.GetApiById<MotivoDto, int>(Controller, id);
 		}
-		public static async Task GuardarAsync(MotivoViewModel motivo)
+		public static async Task GuardarAsync(MotivoDto motivo)
 		{
 			//Validar
 			if (!MotivoValido(motivo))
@@ -27,12 +27,12 @@ namespace EcuAsistencias.Core.Servicios
 			await HttpService.Post(Controller, motivo);
 		}
 
-		public static async Task EliminarAsync(MotivoViewModel motivo)
+		public static async Task EliminarAsync(MotivoDto motivo)
 		{
 			await HttpService.DeleteById(Controller, motivo.Id);
 		}
 
-		private static bool MotivoValido(MotivoViewModel motivo)
+		private static bool MotivoValido(MotivoDto motivo)
 		{
 			if (string.IsNullOrEmpty(motivo.Detalle))
 				return false;

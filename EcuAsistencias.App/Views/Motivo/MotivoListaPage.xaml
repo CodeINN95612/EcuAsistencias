@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
     xmlns:tg="using:Telerik.UI.Xaml.Controls.Grid"
-    xmlns:model="using:EcuAsistencias.Core.ViewModels"
+    xmlns:model="using:EcuAsistencias.Core.Dtos"
     mc:Ignorable="d" Loaded="Page_Loaded" >
     <Grid x:Name="ContentArea" Margin="10">
         <Grid.RowDefinitions>
